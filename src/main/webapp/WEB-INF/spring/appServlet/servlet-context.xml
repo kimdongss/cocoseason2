@@ -48,10 +48,21 @@
         <property name="maxInMemorySize" value="1048576" />
     </bean>
 
-    <!-- Interceptor 설정 -->
+    <!-- Interceptor 설정
+    	로그인 인터셉터
+    	1. 회원관련된 요청
+    	2. 게시물의 저장/수정/삭제시
+    	LoginInterceptor 가 처리하도록 설정
+     -->
     <mvc:interceptors>
         <mvc:interceptor>
             <!-- LoginInterceptor 등록 -->
+            <!-- 회원관련 요청 아래 요청이 오면 더아래 인터셉터가 가로채 가서 검증하고 구현된기능이 동작한다. (insert는 추가 안시킴 왜? 관리자 아니여도 할 수 있어야 하기 때문 -->
+            <mvc:mapping path="/member/view" />
+            <mvc:mapping path="/member/list" />
+            <mvc:mapping path="/member/update" />
+            <mvc:mapping path="/member/delete" />
+            <!-- 게시물의 저장/수정/삭제 관련 요청 -->
             <mvc:mapping path="/board/insert" />
             <mvc:mapping path="/board/update" />
             <mvc:mapping path="/board/delete" />
@@ -63,12 +74,12 @@
     </mvc:interceptors>
     
     <!-- 트랜잭션 매니저 -->
-    <bean id="transactionManager" class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
+    <!-- <bean id="transactionManager" class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
         <property name="dataSource" ref="dataSource" />
-    </bean>
+    </bean> -->
 
     <!-- 트랜잭션 설정 활성화 트랜잭션이 뭐지?  -->
-    <tx:annotation-driven transaction-manager="transactionManager" />
+    <!-- <tx:annotation-driven transaction-manager="transactionManager" /> -->
 
 	<!-- 프로퍼티 파일 로드 -->
     <bean class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">

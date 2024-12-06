@@ -180,9 +180,9 @@
 				#{memberId}, 
 				0,
 				sysdate,
-				#{reply_Group},  <!-- 부모와 같은 그룹번호 -->  
-		        #{reply_Order}, 	 <!-- 부모 order + 1 --> 
-		        #{reply_Indent}	 <!-- 부모 indent +1 -->
+				#{replyGroup},  <!-- 부모와 같은 그룹번호 -->  
+		        #{replyOrder}, 	 <!-- 부모 order + 1 --> 
+		        #{replyIndent}	 <!-- 부모 indent +1 -->
 		        )				
 		</insert>	
 		

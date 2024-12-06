@@ -17,5 +17,6 @@ public class MemberVo {
 	private String password;
 	private String name;
 	private String email;
+	private String roleId; // 권한(admin-관리자, user-일반사용자)
 	private Date regDate;	
 }

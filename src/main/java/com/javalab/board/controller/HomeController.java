@@ -33,7 +33,8 @@ public class HomeController {
 		
 		model.addAttribute("serverTime", formattedDate );
 		
-		return "index";
+//		return "index";
+		return "redirect:/board/list"; // 게시물 목록 재 요청 
 	}
 	
 }

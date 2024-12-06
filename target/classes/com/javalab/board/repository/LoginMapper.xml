@@ -12,6 +12,7 @@
             password,
             name,
             email,
+            role_id,
             reg_date
         FROM 
             member

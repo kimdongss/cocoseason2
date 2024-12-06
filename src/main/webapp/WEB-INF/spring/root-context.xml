@@ -3,9 +3,11 @@
 	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xmlns:context="http://www.springframework.org/schema/context"
 	xmlns:mybatis-spring="http://mybatis.org/schema/mybatis-spring"
+	xmlns:tx="http://www.springframework.org/schema/tx"
 	xsi:schemaLocation="http://mybatis.org/schema/mybatis-spring http://mybatis.org/schema/mybatis-spring-1.2.xsd
 		http://www.springframework.org/schema/beans https://www.springframework.org/schema/beans/spring-beans.xsd
-		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-4.3.xsd">
+		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-4.3.xsd
+		http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-4.3.xsd">
 
 	<!-- Root Context(부모 컨테이너) : 다른 빈들이 공유한다 -->
 	<!-- context:component-scan :빈으로 생성하기 위해서 스캔하는 역할 base-package : 스캔해야할 경로를 
@@ -64,7 +66,7 @@
 		class="org.mybatis.spring.SqlSessionFactoryBean">
 		<property name="dataSource" ref="dataSource"></property>
 		<property name="mapperLocations"
-			value="classpath:/com/javalab/board/repository/*Mapper.xml" />
+			value="classpath*:/com/javalab/board/repository/*Mapper.xml" />
 
 		<!-- [1] 별칭정보와 mapUnderscoreToCamelCase 두가지 설정을 해놓은 파일 지정 -->
 		<!-- <property name="configLocation" value="classpath:/config/sqlMapConfig.xml" 
@@ -95,6 +97,13 @@
 		<constructor-arg ref="sqlSessionFactory"></constructor-arg>
 	</bean>
 
+	<!-- 트랜잭션 매니저 -->
+    <bean id="transactionManager" class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
+        <property name="dataSource" ref="dataSource" />
+    </bean>
+
+    <!-- 트랜잭션 설정 활성화 트랜잭션이 뭐지?  -->
+    <tx:annotation-driven transaction-manager="transactionManager" />
 
 
 	<!-- 스프링 웹애플리케이션 컨텍스트(부모 컨테이너)가 만들어질 때 빈으로 생성할 친구들을 스캔 경로를 지정 -->

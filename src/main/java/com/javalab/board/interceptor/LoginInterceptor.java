@@ -60,6 +60,21 @@ public class LoginInterceptor extends HandlerInterceptorAdapter {
         	
         	return false; // 더이상 컨트롤러 요청으로 가지 않도록 false로 반환함
         }
+//        //여기까지 왔으면 세션에 사용자 정보 있음. 즉, 로그인한 사용자
+//        log.info("세션에 사용자 정보 있으므로 요청 처리");
+//        return true; // 요청된 메소드로 갈수 있다. true이니까
+        
+        // [추가] 사용자 권한 관련 추가 코드 
+        String roleId = user.getRoleId(); // 세션에서 사용자 권한 추출
+        String requestUri = request.getRequestURI(); // 사용자가 요청한 URI
+        
+        // 관리자가 아닌 일반사용자가 /member/** 와 같은 형태의 요청시 접근 차단 
+        if(!roleId.equals("admin") && requestUri.startsWith(request.getContextPath()+"/member")) {
+        	log.info("권한없음 roleId : " + roleId);
+        	response.sendRedirect(request.getContextPath() + "/board/list"); // 일반사용자가 회원관련 요청시 게시물 목록으로 강제 이동
+        	return false;
+        }
+        		
         //여기까지 왔으면 세션에 사용자 정보 있음. 즉, 로그인한 사용자
         log.info("세션에 사용자 정보 있으므로 요청 처리");
         return true; // 요청된 메소드로 갈수 있다. true이니까

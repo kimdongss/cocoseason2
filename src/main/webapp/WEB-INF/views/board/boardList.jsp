@@ -52,10 +52,15 @@
                 <c:choose>
                     <c:when test="${not empty loginUser}">
                         <span class="me-2 text-secondary">${sessionScope.loginUser.memberId}님</span>
+                         <!-- 관리자 권한이 있는 경우 "관리자" 버튼 추가 -->
+	                     <c:if test="${sessionScope.loginUser.roleId == 'admin'}">
+	                         <button id="adminButton" class="btn btn-warning btn-sm">관리자</button>
+	                     </c:if>
                         <button id="logoutButton" class="btn btn-danger btn-sm">로그아웃</button>
                     </c:when>
                     <c:otherwise>
                         <button id="loginButton" class="btn btn-primary btn-sm">로그인</button>
+                        <button id="insertMemberButton" class="btn btn-primary btn-sm">회원가입</button>
                     </c:otherwise>
                 </c:choose>
             </div>
@@ -150,10 +155,23 @@
         // 로그인/로그아웃 버튼 이벤트 처리
         const loginButton = document.getElementById('loginButton');
         const logoutButton = document.getElementById('logoutButton');
+        const adminButton = document.getElementById('adminButton'); // 관리자
+        const insertMemberButton = document.getElementById('insertMemberButton'); // 회원가입
 
         if (loginButton) {
             loginButton.addEventListener('click', function() {
                 window.location.href = "<c:url value='/login' />";
+            });
+        }
+        if (insertMemberButton) {
+        	insertMemberButton.addEventListener('click', function() {
+                window.location.href = "<c:url value='/member/insert' />";
+            });
+        }
+     	// 관리자 버튼 이벤트 핸들러
+        if (adminButton) {
+        	adminButton.addEventListener('click', function() {
+                window.location.href = "<c:url value='/member/list' />";
             });
         }
 
