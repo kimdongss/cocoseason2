@@ -1,0 +1,237 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper 
+	PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+	"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+	
+	<!-- 리포지토리 계층의 매퍼 인터페이스와 매퍼XML을 연결하는 역할 -->
+	<mapper namespace="com.javalab.board.repository.BoardRepository">
+	
+		<!-- 게시물 조회 메소드 -->
+		<select id="getBoardList" resultType="BoardVo">
+			SELECT board_no, 
+				title, 
+				content, 
+				member_id, 
+				hit_no, 
+				reg_date  
+			FROM board 
+			ORDER BY reg_date DESC		
+		</select>
+		
+		<!-- [1] 게시물 목록 조회(페이징 + 검색 기능 추가) :  인덱스를 활용한 정렬
+			Criteria : 조회할 조건을 담고 있는 객체가 파라미터로 주어진다.
+			![CDATA[ ~ ]] : 쿼리문 내에 꺽쇠(> <)와 같은 기호가 올 경우 태그로 인식하지 않도록 하기 위함	
+		 -->
+		<!-- 게시물 목록 조회(페이징 + 검색 기능 추가) -->
+<!--       <select id="getBoardListPaging" parameterType="Criteria" resultType="BoardVo">
+        <![CDATA[
+        SELECT 
+          board_no, 
+         title, 
+         content, 
+         member_id, 
+         hit_no, 
+         reg_date 
+        FROM 
+            (
+            SELECT /*+INDEX_DESC(BOARD PK_BOARD) */
+              ROWNUM RN, 
+              board_no, 
+            title, 
+            content, 
+            member_id, 
+            hit_no, 
+            reg_date 
+            FROM 
+              BOARD
+            WHERE
+               (TITLE LIKE '%'||#{searchText}||'%' OR CONTENT LIKE '%'||#{searchText}||'%') 
+               AND ROWNUM <= #{pageNum} * #{amount}
+               )
+            WHERE RN > (#{pageNum} - 1) * #{amount} 
+        ]]>
+      </select>  -->  
+      
+      <!-- [2] order by + offset ~ fetch next구문 사용 (오로지 오라클DB만 먹는다) -->
+      <!-- <select id="getBoardListPaging" parameterType="Criteria" resultType="BoardVo">
+        <![CDATA[
+        SELECT
+         board_no, 
+         title, 
+         content, 
+         member_id, 
+         hit_no, 
+         reg_date,
+         reply_group,
+         reply_order,
+         reply_indent
+        FROM 
+            BOARD
+        WHERE
+             (TITLE LIKE '%'||#{searchText}||'%' OR CONTENT LIKE '%'||#{searchText}||'%') 
+        ORDER BY board_no DESC
+        OFFSET (#{pageNum} - 1) * #{amount} ROWS
+        FETCH NEXT #{amount} ROWS ONLY
+        ]]>
+      </select>  -->  
+      
+      <!-- [3] 계층형 답글 + row_number() over() 구문 사용, ![CDATA[ 구문 제거, <WHERE> 충돌남 -->
+      <select id="getBoardListPaging" parameterType="Criteria" resultType="BoardVo">
+          SELECT 
+              board_no, 
+              title, 
+              member_id, 
+              hit_no, 
+              reg_date, 
+              reply_group, 
+              reply_order, 
+              reply_indent
+          FROM (
+              SELECT 
+                  board_no, 
+                  title, 
+                  member_id, 
+                  hit_no, 
+                  reg_date, 
+                  reply_group, 
+                  reply_order, 
+                  reply_indent,
+                  ROW_NUMBER() OVER (ORDER BY reply_group DESC, reply_order ASC, reply_indent ASC) AS rnum
+              FROM board
+              <where>
+                  <if test="searchText != null and searchText != ''">
+                      (title LIKE '%' || #{searchText} || '%' 
+                       OR content LIKE '%' || #{searchText} || '%')
+                  </if>
+              </where>
+          )
+          WHERE rnum BETWEEN ((#{pageNum} - 1) * #{amount} + 1) AND (#{pageNum} * #{amount})
+      </select>
+  
+	
+		<!-- 게시물 내용 조회 -->
+		<!-- id="getBoard" : 메소드의 이름으로 인터페이스에 있는 추상메소드 이름과 같아야 한다.
+			resultType="BoardVo" : 쿼리 실행 결과를 담아줄 vo 클래스를 지정한다. 
+				BoardVo 별칭은 sqlMapConfig.xml에 정의되어 있다.		
+			#{boardNo} : 쿼리문에 전달될 파라미터로 매퍼인터페이스의 메소드 파라미터 이름과 같아야 한다. 
+			PrepardStatement의 ?표와 같은 역할을 한다. -->
+		<select id="getBoard" parameterType="int" resultType="BoardVo">
+			select board_no, 
+				title, 
+				content, 
+				member_id, 
+				hit_no,
+				reg_date,
+				reply_group,
+            	reply_order,
+            	reply_indent
+			from board 
+			where board_no = #{boardNo}
+		</select>
+		
+		<!-- 게시물 조회수 증가 메소드 -->
+		<update id="increaseHitNo" parameterType="int">
+        UPDATE board
+        SET hit_no = hit_no + 1
+        WHERE board_no = #{boardNo}
+    	</update>
+    	
+    	<!-- 전체 게시물수(실제 끝 페이지번호 계산시 필요) 
+    		- 만약 검색어가 있을 경우에는 검색어를 포함하고 있는 전체 게시물수를 의미한다.
+    		- searchText : Criteria의 속성으로 검색어 정보를 보관하고 있음.
+    	-->
+<!--     	<select id = "getTotalBoardCount" parameterType="Criteria" resultType="int">
+    		SELECT COUNT(*)
+    		FROM BOARD
+    		WHERE 1=1
+    		<if test="searchText != null">
+    			AND (TITLE LIKE '%'||#{searchText}||'%' OR CONTENT LIKE '%'||#{searchText}||'%')
+    		</if>
+    	</select> -->
+    	
+    	<select id = "getTotalBoardCount" parameterType="Criteria" resultType="int">
+    		SELECT COUNT(*)
+    		FROM BOARD
+    		<where>
+    			<if test="searchText != null">
+    				TITLE LIKE '%'||#{searchText}||'%' OR CONTENT LIKE '%'||#{searchText}||'%'
+    			</if>
+    		</where>
+    	</select>
+	
+		<!-- 게시물 등록 메소드 : 본글 계층형 답글 적용 전
+			#{title} : BoardVo의 title 속성 이름 -->
+		<insert id="insertBoard" parameterType="BoardVo">
+			insert into board(
+				board_no,
+				title, 
+				content, 
+				member_id, 
+				hit_no,
+				reg_date,
+				reply_group, 
+		        reply_order, 
+		        reply_indent
+		        )
+			values (
+				board_seq.nextval,
+				#{title}, 
+				#{content}, 
+				#{memberId}, 
+				0,
+				sysdate,
+				#{reply_Group},  <!-- 부모와 같은 그룹번호 -->  
+		        #{reply_Order}, 	 <!-- 부모 order + 1 --> 
+		        #{reply_Indent}	 <!-- 부모 indent +1 -->
+		        )				
+		</insert>	
+		
+		<!-- 기존 답글 순서 조정 -->
+		<update id="updateReplyOrder" parameterType="BoardVo">
+		<!-- 답글이 달리기 위한 사전작업(새로운 답글이 들어갈 수 있도록 기존 답글의 order + 1로 조정) -->
+		    UPDATE board
+		    SET reply_order = reply_order + 1
+		    WHERE reply_group = #{replyGroup} AND reply_order > #{replyOrder}
+		</update>
+		
+		<!-- 계층형 답글 작성 / / 게시물(답글) 등록 메소드 계층형 답글 적용 후 -->
+		<insert id="insertReply" parameterType="BoardVo">
+
+		    <!-- 답글 삽입 -->
+		    INSERT INTO board (
+		        board_no, 
+		        title, 
+		        content, 
+		        member_id, 
+		        hit_no, 
+		        reg_date, 
+		        reply_group, 
+		        reply_order, 
+		        reply_indent
+		    ) VALUES (
+		        board_seq.NEXTVAL, 
+		        #{title}, 
+		        #{content}, 
+		        #{memberId}, 
+		        0, 
+		        SYSDATE, 
+		        #{replyGroup}, 
+		        #{replyOrder}, 
+		        #{replyIndent}
+		    )
+		</insert>
+		
+		<!-- 게시물 수정 메소드 -->
+		<update id="updateBoard" parameterType="BoardVo">
+			update board
+			set title = #{title},
+				content = #{content}
+			where board_no = #{boardNo}
+		</update>
+
+		<!-- 게시물 삭제 메소드 -->
+		<delete id="deleteBoard" parameterType="int">
+			delete from board
+			where board_no = #{boardNo}
+		</delete>	
+	</mapper>

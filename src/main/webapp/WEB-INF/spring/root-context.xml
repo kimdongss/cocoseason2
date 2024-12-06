@@ -1,0 +1,105 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:mybatis-spring="http://mybatis.org/schema/mybatis-spring"
+	xsi:schemaLocation="http://mybatis.org/schema/mybatis-spring http://mybatis.org/schema/mybatis-spring-1.2.xsd
+		http://www.springframework.org/schema/beans https://www.springframework.org/schema/beans/spring-beans.xsd
+		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-4.3.xsd">
+
+	<!-- Root Context(부모 컨테이너) : 다른 빈들이 공유한다 -->
+	<!-- context:component-scan :빈으로 생성하기 위해서 스캔하는 역할 base-package : 스캔해야할 경로를 
+		지정 com.javalab.board.service : 이 위치에 빈으로 생성될 클래스드를 찾게됨. -->
+
+	<!-- DataSource는 데이터베이스 연결 풀(Connection Pool)을 관리하는 인터페이스 -->
+	<!-- DriverManagerDataSource는 스프링에서 제공하는 기본적인 DataSource 구현체로, 단순히 데이터베이스 
+		연결을 제공. 애플리케이션이 데이터베이스에 접근하려면 DataSource 객체를 통해 연결(Connection)을 얻어야 한다. -->
+	<!-- <bean id="dataSource" class="org.springframework.jdbc.datasource.DriverManagerDataSource"> 
+		<property name="driverClassName" value="oracle.jdbc.OracleDriver"/> <property 
+		name="url" value="jdbc:oracle:thin:@localhost:1521:orcl"/> <property name="username" 
+		value="sboard"/> <property name="password" value="1234"/> </bean> -->
+	<!-- JdbcTemplate는 스프링이 제공하는 JDBC 작업을 단순화하는 추상화된 클래스 JdbcTemplate은 DataSource를 
+		필요로 합니다. 커넥션 열기, 쿼리 실행, 결과 처리, 예외 처리 및 자원 해제 담당 1. 데이터베이스 쿼리 실행 (SELECT, 
+		INSERT, UPDATE, DELETE). 2. SQL 쿼리 결과를 매핑하여 객체로 반환 (queryForList, query, 
+		queryForObject 등). [순서] 1. JdbcTemplate이 DataSource에서 연결을 가져옵니다. 2. SQL 쿼리를 
+		실행하고 결과를 처리합니다. -->
+	<!-- <bean id="jdbcTemplate" class="org.springframework.jdbc.core.JdbcTemplate"> 
+		<property name="dataSource" ref="dataSource"/> </bean> -->
+
+	<!-- 매퍼인터페이스의 위치를 지정 -->
+	<mybatis-spring:scan
+		base-package="com.javalab.board.repository" />
+
+
+	<!-- property-placeholder
+		1. 외부에 설정되어 있는 데이터베이스 계정과
+		2. JDBC 드라이버 로딩 문자열
+		3. DB 연결 문자열등이 저장된 파일을 읽어온다. -->
+	<context:property-placeholder location="classpath:config/database.properties" />	
+	
+	<!-- HikariCP 객체 생성을 위한 환경 설정정보 세팅 -->
+	<!-- HikariConfig : HikariCP 설정을 위한 클래스로 오라클 DB에 접속하기 위한 정보를 제공한다. pom.xml에 
+		HikariCP 의존성이 설정되어 있어야 한다. -->
+	<bean id="hikariConfig" class="com.zaxxer.hikari.HikariConfig">
+		<property name="driverClassName"
+			value="${jdbc.driver}" />
+		<property name="jdbcUrl"
+			value="${jdbc.url}" />
+		<property name="username" value="${jdbc.username}" />
+		<property name="password" value="${jdbc.password}" />
+	</bean>
+	<!-- HikariCP 컨넥션 풀 객체 생성 -->
+	<!-- HikariDataSource : sql.DataSource 인터페이스 구현체로 커넥션 풀을 생성하는 클래스이다. -->
+	<bean id="dataSource" class="com.zaxxer.hikari.HikariDataSource"
+		destroy-method="close">
+		<constructor-arg ref="hikariConfig" />
+	</bean>
+
+	<!-- SqlSessionFactory 설정 : Sql Session을 생성하는 factory -->
+	<!-- SqlSessionFactoryBean은 빈으로 생성시 HikariCP 객체의 참조주소를 받아야 한다. 이렇게 만들진 빈은 
+		스프링이 MyBatis의 SqlSessionFactory 객체를 생성하고 관리할수 있도록 도와준다.이는 마이바티스 매퍼 인터페이스와 
+		매퍼XML을 연결하는 역할도 한다. 1. dataSource : 위에서 생성한 HikariCP 빈의 참조 주소 2. mapperLocations 
+		: 매퍼XML의 위치 지정 -->
+	<bean id="sqlSessionFactory"
+		class="org.mybatis.spring.SqlSessionFactoryBean">
+		<property name="dataSource" ref="dataSource"></property>
+		<property name="mapperLocations"
+			value="classpath:/com/javalab/board/repository/*Mapper.xml" />
+
+		<!-- [1] 별칭정보와 mapUnderscoreToCamelCase 두가지 설정을 해놓은 파일 지정 -->
+		<!-- <property name="configLocation" value="classpath:/config/sqlMapConfig.xml" 
+			/> -->
+
+		<!-- [2] [1].번 설정파일을 제거하고 여기에 두 가지 설정을 직접한다. --> 
+		<!-- 2.1. mapUnderscoreToCamelCase 설정 -->
+		<property name="configuration">
+			<bean class="org.apache.ibatis.session.Configuration">
+				<property name="mapUnderscoreToCamelCase" value="true"></property>
+			</bean>
+		</property>
+		<!-- 2.2 별칭정보 설정
+			 value에 지정되어 있는 클래스들은 모두 그 이름만으로 SQL에서 매핑 객체로 쓸수 있다.
+			 [추가] dto 패키지가 추가됨 -->
+		<property name="typeAliasesPackage" value="com.javalab.board.vo, com.javalab.board.dto"></property>
+
+
+	</bean>
+
+	<!-- SqlSessionTemplate 빈 생성을 위한 설정 -->
+	<!-- SqlSessionTemplate은 SqlSession 인터페이스의 구현체로 Spring과 MyBatis의 통합을 위해 
+		설계되었다. 1. SQL 명령어 실행 2. 데이터베이스 트랜잭션 관리 3. 쿼리 결과를 도메인 클래스로 매핑과 같은 기능을 제공한다. 
+		그리고 1. 자동 트랜잭션 처리 2. SqlSession 자동 닫기 3. 멀티 스레드에 안정적 4. MyBatis의 예외를 Spring의 
+		데이터접근 예외로 변환해줘서 스프링이 처리하게 편하다. 와 같은 장점이 있다. -->
+	<bean id="sqlSession"
+		class="org.mybatis.spring.SqlSessionTemplate">
+		<constructor-arg ref="sqlSessionFactory"></constructor-arg>
+	</bean>
+
+
+
+	<!-- 스프링 웹애플리케이션 컨텍스트(부모 컨테이너)가 만들어질 때 빈으로 생성할 친구들을 스캔 경로를 지정 -->
+	<context:component-scan
+		base-package="com.javalab.board.service"></context:component-scan>
+	<context:component-scan
+		base-package="com.javalab.board.repository"></context:component-scan>
+</beans>
