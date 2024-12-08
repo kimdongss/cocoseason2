@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper 
+	PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+	"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<!-- 리포지토리 계층의 매퍼 인터페이스와 매퍼XML을 연결하는 역할 -->
+<mapper namespace="com.javalab.board.repository.OrderRepository">
+
+    <insert id="insertOrder" parameterType="com.javalab.board.vo.OrderVo">
+        INSERT INTO ORDER_INFO (
+        ORDER_ID, 
+        PRODUCT_ID, 
+        MEMBER_ID, 
+        PRODUCT_NAME, 
+        UNIT_PRICE, 
+        QUANTITY, 
+        ADDRESS, 
+        PHONE)
+        VALUES (
+        seq_order_info.NEXTVAL, 
+        #{productId}, 
+        #{memberId}, 
+        #{productName}, 
+        #{unitPrice}, 
+        #{quantity}, 
+        #{address}, 
+        #{phone})
+    </insert>
+
+    <select id="selectAllOrders" resultType="com.javalab.board.vo.OrderVo">
+        SELECT * 
+        FROM ORDER_INFO
+    </select>
+
+    <select id="selectOrdersByMember" resultType="com.javalab.board.vo.OrderVo">
+        SELECT * 
+        FROM ORDER_INFO 
+        WHERE MEMBER_ID = #{memberId}
+    </select>
+</mapper>
