@@ -23,8 +23,8 @@ public class CartServiceImpl implements CartService {
         if (existingItem != null) {
             // 수량이 증가하는 로직
             existingItem.setQuantity(existingItem.getQuantity() + item.getQuantity());
-            // spCartId 대신 memberId와 productId를 사용하여 수량 업데이트
-            updateCartItemQuantity(item.getSpCartId(), existingItem.getQuantity());
+            // 기존 아이템의 spCartId 사용
+            updateCartItemQuantity(existingItem.getSpCartId(), existingItem.getQuantity());
         } else {
             // 상품이 장바구니에 없으면 새로 추가
             cartRepository.insertCartItem(item);

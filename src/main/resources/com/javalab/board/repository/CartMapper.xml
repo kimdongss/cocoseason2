@@ -15,7 +15,7 @@
 		PRODUCT_NAME,
 		UNIT_PRICE, 
 		QUANTITY)
-		VALUES (
+	VALUES (
 		seq_shopping_cart.NEXTVAL, 
 		#{memberId}, 
 		#{productId}, 
