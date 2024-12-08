@@ -8,6 +8,6 @@ public class AdminController {
 
     @GetMapping("/admin")
     public String adminPage() {
-        return "admin"; // admin.jsp로 이동
+        return "admin/admin"; // admin.jsp로 이동
     }
 }

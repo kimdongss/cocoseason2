@@ -52,7 +52,8 @@
         UPDATE member
         SET password = #{password},
             name = #{name},
-            email = #{email}
+            email = #{email},
+            role_id = #{roleId}
         WHERE member_id = #{memberId}
     </update>
 

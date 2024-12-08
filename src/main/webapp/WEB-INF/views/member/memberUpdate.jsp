@@ -43,7 +43,16 @@
                                 <label for="emailInput" class="form-label">이메일</label>
                                 <input type="email" class="form-control" id="emailInput" name="email" 
                                        value="${member.email}" required>
-                            </div>
+                            </div>   
+	                        <!-- 권한 -->
+	                        <div class="mb-3">
+	                            <label for="role" class="form-label">권한</label></br>
+	                            <select id="role" name="roleId" size="1" class="form-control" >
+	                                <option value=admin <c:if test="${member.roleId == 'admin'}">selected</c:if>>관리자</option>
+									<option value=member <c:if test="${member.roleId == 'member'}">selected</c:if>>정회원</option>
+									<option value=guest <c:if test="${member.roleId == 'guest'}">selected</c:if>>준회원</option>
+								</select>
+	                        </div>
                             <!-- 버튼 -->
                             <div class="d-flex justify-content-between">
                                 <button id="submitButton" type="submit" class="btn btn-primary">수정</button>
@@ -66,7 +75,11 @@
             const password = document.getElementById("passwordInput").value.trim();
             const name = document.getElementById("nameInput").value.trim();
             const email = document.getElementById("emailInput").value.trim();
-
+            const role = document.getElementById("role").value.trim();
+            
+        
+            
+            
             // 유효성 검사
             if (password === "") {
                 alert("비밀번호를 입력하세요.");

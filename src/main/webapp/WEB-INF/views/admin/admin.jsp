@@ -20,8 +20,8 @@
                     </div>
                     <div class="card-body">
                         <div class="d-flex justify-content-center flex-column">
-                            <a href="<c:url value='/admin/memberlist' />" class="btn btn-primary mb-3">회원목록</a>
-                            <a href="<c:url value='/admin/orderlist' />" class="btn btn-primary">주문목록</a>
+                            <a href="<c:url value='member/list' />" class="btn btn-primary mb-3">회원목록</a>
+                            <a href="<c:url value='orderlist' />" class="btn btn-primary">주문목록</a>
                         </div>
                     </div>
                 </div>
