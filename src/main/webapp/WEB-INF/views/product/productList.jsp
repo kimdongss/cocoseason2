@@ -46,10 +46,15 @@
                 <c:choose>
                     <c:when test="${not empty loginUser}">
                         <span class="me-2 text-secondary">${sessionScope.loginUser.memberId}님</span>
+                         <!-- 관리자 권한이 있는 경우 "관리자" 버튼 추가 -->
+	                     <c:if test="${sessionScope.loginUser.roleId == 'admin'}">
+	                         <button id="adminButton" class="btn btn-warning btn-sm">관리자</button>
+	                     </c:if>
                         <button id="logoutButton" class="btn btn-danger btn-sm">로그아웃</button>
                     </c:when>
                     <c:otherwise>
                         <button id="loginButton" class="btn btn-primary btn-sm">로그인</button>
+                        <button id="insertMemberButton" class="btn btn-primary btn-sm">회원가입</button>
                     </c:otherwise>
                 </c:choose>
             </div>
@@ -66,28 +71,35 @@
         </div>
 
         <!-- 상품 테이블 -->
-        <table class="table table-bordered table-striped table-hover">
-            <thead class="table-light">
-                <tr>
-                    <th>순번</th>
-                    <th>상품명</th>
-                    <th>단가</th>
-                    <th>입고일</th>
-                </tr>
-            </thead>
-            <tbody>
-                <c:forEach var="product" items="${productList}" varStatus="status">
-                    <tr>
-                        <td>${status.index + 1}</td>
-                        <td><a href="<c:url value='/product/detail/${product.productId}'/>">${product.name}</a></td>
-                        <td>${product.unitPrice}</td>
-                        <td>
-                            <fmt:formatDate value="${product.regDate}" pattern="yyyy-MM-dd HH:mm:ss" />
-                        </td>
-                    </tr>
-                </c:forEach>
-            </tbody>
-        </table>
+		<table class="table table-bordered table-striped table-hover">
+		    <thead class="table-light">
+		        <tr>
+		            <th>순번</th>
+		            <th>상품명</th>
+		            <th>단가</th>
+		            <th>입고일</th>
+		            <th>장바구니</th> <!-- 장바구니 버튼 열 추가 -->
+		        </tr>
+		    </thead>
+		    <tbody>
+		        <c:forEach var="product" items="${productList}" varStatus="status">
+		            <tr>
+		                <td>${status.index + 1}</td>
+		                <td><a href="<c:url value='/product/detail/${product.productId}'/>">${product.name}</a></td>
+		                <td>${product.unitPrice}</td>
+		                <td>
+		                    <fmt:formatDate value="${product.regDate}" pattern="yyyy-MM-dd HH:mm:ss" />
+		                </td>
+		                <td>
+		                    <!-- showCartButton이 true일 경우에만 장바구니 버튼 표시 -->
+		                    <c:if test="${showCartButton}">
+		                        <button class="btn btn-success">장바구니</button>
+		                    </c:if>
+		                </td>
+		            </tr>
+		        </c:forEach>
+		    </tbody>
+		</table>
 
         <!-- 페이징 -->
         <div class="pagination-container">
@@ -128,10 +140,19 @@
         // 로그인/로그아웃 버튼 이벤트 처리
         const loginButton = document.getElementById('loginButton');
         const logoutButton = document.getElementById('logoutButton');
+        const adminButton = document.getElementById('adminButton'); // 관리자
+        const insertMemberButton = document.getElementById('insertMemberButton'); // 회원가입
 
         if (loginButton) {
             loginButton.addEventListener('click', function () {
                 window.location.href = "<c:url value='/login' />";
+            });
+        }
+        
+     	// 관리자 버튼 이벤트 핸들러
+        if (adminButton) {
+        	adminButton.addEventListener('click', function() {
+                window.location.href = "<c:url value='/member/list' />";
             });
         }
 

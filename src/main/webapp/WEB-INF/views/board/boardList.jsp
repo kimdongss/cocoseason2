@@ -5,7 +5,7 @@
 <html>
 <head>
     <meta charset="UTF-8">
-    <title>게시판 목록</title>
+    <title>질의응답 목록</title>
     <!-- Bootstrap CSS -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
 
@@ -46,7 +46,7 @@
     <div class="container mt-5">
         <!-- 페이지 헤더 -->
         <header class="d-flex justify-content-between align-items-center mb-3">
-            <h1>게시물 목록</h1>
+            <h1>질의응답 게시판</h1>
             <!-- 로그인/로그아웃 버튼 -->
             <div>
                 <c:choose>
@@ -72,7 +72,7 @@
               <input type="text" class="form-control me-2" name="searchText" id="searchText" placeholder="검색어를 입력하세요" value="${pageMaker.cri.searchText}">
               <button type="submit" class="btn btn-info me-2">검색</button>
               <button type="button" class="btn btn-warning me-2" onclick="location.href='<c:url value='/board/list' />'">전체보기</button>
-              <button type="button" class="btn btn-success" onclick="location.href='<c:url value='/board/insert' />'">게시물 등록</button>
+              <button type="button" class="btn btn-success" onclick="location.href='<c:url value='/board/insert' />'">질문 등록</button>
           </form>
       </div>
 
@@ -171,7 +171,7 @@
      	// 관리자 버튼 이벤트 핸들러
         if (adminButton) {
         	adminButton.addEventListener('click', function() {
-                window.location.href = "<c:url value='/member/list' />";
+                window.location.href = "<c:url value='/admin' />";
             });
         }
 
