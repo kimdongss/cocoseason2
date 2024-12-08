@@ -44,9 +44,9 @@
                                 <input type="email" class="form-control" id="emailInput" name="email" 
                                        value="${member.email}" required>
                             </div>   
-	                        <!-- 권한 -->
+	                        <!-- 등급 -->
 	                        <div class="mb-3">
-	                            <label for="role" class="form-label">권한</label></br>
+	                            <label for="role" class="form-label">등급</label></br>
 	                            <select id="role" name="roleId" size="1" class="form-control" >
 	                                <option value=admin <c:if test="${member.roleId == 'admin'}">selected</c:if>>관리자</option>
 									<option value=member <c:if test="${member.roleId == 'member'}">selected</c:if>>정회원</option>
