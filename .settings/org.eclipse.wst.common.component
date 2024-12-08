@@ -16,7 +16,7 @@
                 		
         
         <property name="java-output-path" value="target/classes"/>
-        <property name="context-root" value="board"/>
+        <property name="context-root" value="/"/>
                 	
     
     </wb-module>

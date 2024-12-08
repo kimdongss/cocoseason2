@@ -9,4 +9,7 @@ public interface CartService {
    List<ShoppingCartVo> getCartItems(String memberId);
    void clearCart(String memberId);
    List<ShoppingCartVo> getCartItemsForOrder(String memberId); // 장바구니 아이템을 주문을 위해 가져오기
+   
+   ShoppingCartVo getCartItem(String memberId, Long productId);
+   void updateCartItemQuantity(Long spCartId, int quantity);
 }

@@ -47,6 +47,8 @@
                     <c:when test="${not empty loginUser}">
                         <span class="me-2 text-secondary">${sessionScope.loginUser.memberId}님</span>
                         <button id="logoutButton" class="btn btn-danger btn-sm">로그아웃</button>
+                         <!-- 장바구니로 가는 버튼 추가 -->
+                        <a href="<c:url value='/cart/view' />" class="btn btn-primary btn-sm">장바구니</a>
                     </c:when>
                     <c:otherwise>
                         <button id="loginButton" class="btn btn-primary btn-sm">로그인</button>
