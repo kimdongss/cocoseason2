@@ -161,7 +161,7 @@
 	
 		<!-- 게시물 등록 메소드 : 본글 계층형 답글 적용 전
 			#{title} : BoardVo의 title 속성 이름 -->
-		<insert id="insertBoard" parameterType="BoardVo">
+		<!-- <insert id="insertBoard" parameterType="BoardVo">
 			insert into board(
 				board_no,
 				title, 
@@ -180,12 +180,40 @@
 				#{memberId}, 
 				0,
 				sysdate,
-				#{replyGroup},  <!-- 부모와 같은 그룹번호 -->  
-		        #{replyOrder}, 	 <!-- 부모 order + 1 --> 
-		        #{replyIndent}	 <!-- 부모 indent +1 -->
+				#{replyGroup},  부모와 같은 그룹번호  
+		        #{replyOrder}, 	 부모 order + 1 
+		        #{replyIndent}	 부모 indent +1
 		        )				
-		</insert>	
+		</insert>	 -->
 		
+		<!-- 새글 등록시 selectKey를 통해서 미리 글번호를 알아내고 그 번호를 reply_group에 할당 -->
+		<insert id="insertBoard" parameterType="BoardVo" useGeneratedKeys="true" keyProperty="boardNo">
+		    <!-- <selectKey>를 사용하여 board_seq의 다음 값을 가져옴 -->
+		    <selectKey keyProperty="boardNo" resultType="int" order="BEFORE">
+		        SELECT board_seq.NEXTVAL FROM DUAL
+		    </selectKey>
+		    insert into board (
+		        board_no,
+		        title,
+		        content,
+		        member_id,
+		        hit_no,
+		        reg_date,
+		        reply_group,
+		        reply_order,
+		        reply_indent
+		    ) values (
+		        #{boardNo},
+		        #{title},
+		        #{content},
+		        #{memberId},
+		        0,
+		        sysdate,
+		        #{boardNo}, <!-- 새로 생성된 boardNo 값을 reply_group에 설정 -->
+		        #{replyOrder},
+		        #{replyIndent}
+		    )
+		</insert>
 		<!-- 기존 답글 순서 조정 -->
 		<update id="updateReplyOrder" parameterType="BoardVo">
 		<!-- 답글이 달리기 위한 사전작업(새로운 답글이 들어갈 수 있도록 기존 답글의 order + 1로 조정) -->

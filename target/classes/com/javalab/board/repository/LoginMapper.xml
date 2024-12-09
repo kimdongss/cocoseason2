@@ -13,6 +13,8 @@
             name,
             email,
             role_id,
+            phone,
+            address,
             reg_date
         FROM 
             member

@@ -10,7 +10,9 @@
         password, 
         name, 
         email,
-        role_id, 
+        role_id,
+        phone,
+        address, 
         reg_date
         FROM member
         ORDER BY reg_date DESC
@@ -24,6 +26,8 @@
         name, 
         email, 
         role_id,
+        phone,
+        address, 
         reg_date
         FROM member
         WHERE member_id = #{memberId}
@@ -37,13 +41,17 @@
         name, 
         email, 
         role_id,
+        phone,
+        address,
         reg_date)
         VALUES (
         #{memberId}, 
         #{password}, 
         #{name}, 
         #{email}, 
-        'user',
+        'guest',
+        #{phone},
+        #{address},
         SYSDATE)
     </insert>
 
@@ -52,7 +60,10 @@
         UPDATE member
         SET password = #{password},
             name = #{name},
-            email = #{email}
+            email = #{email},
+            role_id = #{roleId},
+            phone = #{phone},
+            address = #{address}
         WHERE member_id = #{memberId}
     </update>
 
