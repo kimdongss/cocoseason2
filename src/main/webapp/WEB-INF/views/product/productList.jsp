@@ -46,12 +46,17 @@
                 <c:choose>
                     <c:when test="${not empty loginUser}">
                         <span class="me-2 text-secondary">${sessionScope.loginUser.memberId}님</span>
+                        <!-- 관리자 권한이 있는 경우 "관리자" 버튼 추가 -->
+	                     <c:if test="${sessionScope.loginUser.roleId == 'admin'}">
+	                         <button id="adminButton" class="btn btn-warning btn-sm">관리자</button>
+	                     </c:if>
                         <button id="logoutButton" class="btn btn-danger btn-sm">로그아웃</button>
                          <!-- 장바구니로 가는 버튼 추가 -->
                         <a href="<c:url value='/cart/view' />" class="btn btn-primary btn-sm">장바구니</a>
                     </c:when>
                     <c:otherwise>
                         <button id="loginButton" class="btn btn-primary btn-sm">로그인</button>
+                        <button id="insertMemberButton" class="btn btn-primary btn-sm">회원가입</button>
                     </c:otherwise>
                 </c:choose>
             </div>
