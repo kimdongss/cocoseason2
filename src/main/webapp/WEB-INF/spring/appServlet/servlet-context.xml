@@ -70,7 +70,7 @@
             <mvc:mapping path="/board/delete" />
             <!-- 상품의 저장/수정/삭제 관련 요청 (관리자만 접근가능)-->
             <mvc:mapping path="/product/create" />
-            <mvc:mapping path="/product/update" />
+            <mvc:mapping path="/product/update" /> 
             <mvc:mapping path="/product/delete" />
             <!-- <mvc:mapping path="/product/admin/order" /> -->
             <!-- 제외 경로 -->

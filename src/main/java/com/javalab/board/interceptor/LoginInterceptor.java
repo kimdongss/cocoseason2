@@ -77,7 +77,7 @@ public class LoginInterceptor extends HandlerInterceptorAdapter {
         	log.info("권한없음 roleId : " + roleId);
         	response.sendRedirect(request.getContextPath() + "/product/list"); // 일반사용자가 회원관련 요청시 게시물 목록으로 강제 이동
         	return false;
-        }
+        } 
         		
         //여기까지 왔으면 세션에 사용자 정보 있음. 즉, 로그인한 사용자
         log.info("세션에 사용자 정보 있으므로 요청 처리");
