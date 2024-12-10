@@ -67,9 +67,37 @@
         <c:if test="${empty cartItems}">
             <p>장바구니에 상품이 없습니다.</p>
         </c:if>
+        <!-- 주문하기 버튼 추가 -->
+        <c:if test="${loginUser != null}"> <!-- 로그인 상태 확인 -->
+            <c:if test="${sessionScope.loginUser.roleId == 'member' || sessionScope.loginUser.roleId == 'admin'}"> <!-- 역할 확인 -->
+                <form action="<c:url value='/order/place' />" method="post">
+                    <input type="hidden" name="orderId" value="${order_info.orderId}"/>
+                    <input type="hidden" name="productId" value="${product.productId}"/>
+                    <input type="hidden" name="memberId" value="${sessionScope.loginUser.memberId}"/> <!-- 로그인한 회원 ID -->
+                    <input type="hidden" name="productName" value="${product.name}"/>
+                    <input type="hidden" name="unitPrice" value="${product.unitPrice}"/>
+                    <input type="hidden" name="quantity" value="${shopping_cart.quantity}"/> <!-- 장바구니에 담겨있는 수량 -->
+                    <input type="hidden" name="address" value="${sessionScope.loginUser.address}"/>
+                    <input type="hidden" name="phone" value="${sessionScope.loginUser.phone}"/>
+                    
+                    <!-- 왜 안돠?? 
+                    1. 일단sessionScope.loginUser.address 이 방법이 틀린것 같다 로그인 유저의아이디를 가지고 멤버테이블에서 비교해와서
+                    넣어주는 방법을 생각해 봐야할 듯  
+                    2. 또 카트 에서 소계와 합계를 jsp 에서 계산하지말고 컨트롤러에 ajax로 수량 보낼때 같이 보내서 거기서 계산해와서 수량 받을때 받아와서 표시하는방법으로 구현
+                    
+                    
+                    -->
+                    
+
+                    <!-- 주문하기 버튼 -->
+                    <button type="submit" class="btn btn-primary mt-4">주문하기</button> 
+                </form>
+            </c:if>
+        </c:if>
 
         <!-- 상품 목록으로 돌아가기 버튼 -->
         <a href="<c:url value='/product/list'/>" class="btn btn-primary mt-3">상품 목록으로 돌아가기</a>
+        
     </div>
 
     <!-- Bootstrap JS and jQuery -->

@@ -44,6 +44,30 @@
                                 <input type="email" class="form-control" id="emailInput" name="email" 
                                        value="${member.email}" required>
                             </div>
+                            <!-- 회원등급 -->
+                            <div class="mb-3">
+                                <label for="roleIdInput" class="form-label">회원등급</label>
+                                <input type="text" class="form-control" id="roleIdInput" name="roleId" 
+                                       value="${member.roleId}" required>
+                            </div>
+                            <!-- 전화번호 -->
+							<div class="mb-3">
+							    <label for="phoneInput" class="form-label">전화번호</label>
+							    <input type="tel" class="form-control" id="phoneInput" name="phone" 
+							    	   value="${member.phone}" required>
+							</div>
+							<!-- 주소 -->
+							<div class="mb-3">
+							    <label for="addressInput" class="form-label">주소</label>
+							    <input type="text" class="form-control" id="addressInput" name="address" 
+							    	   value="${member.address}" required>
+							</div>
+                            
+                           	<!-- 오류 메시지 -->
+							<c:if test="${not empty errorMessage}">
+								<div class="alert alert-danger" role="alert">
+									${errorMessage}</div>
+							</c:if>
                             <!-- 버튼 -->
                             <div class="d-flex justify-content-between">
                                 <button id="submitButton" type="submit" class="btn btn-primary">수정</button>
