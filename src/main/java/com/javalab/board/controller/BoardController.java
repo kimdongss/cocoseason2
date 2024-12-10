@@ -272,7 +272,7 @@ public class BoardController {
 	    String roleId = loginUser.getRoleId();
 
 	    // admin이 아닌 경우 삭제 권한이 없으므로 에러 메시지 추가
-	    if (roleId == null || !roleId.equals("admin")) {
+	    if (!roleId.equals("admin")) {
 	        redirectAttributes.addFlashAttribute("errorMessage", "삭제 권한이 없습니다.");
 	        return "redirect:/board/view?boardNo=" + boardNo; // 게시물 상세 보기로 이동
 	    }
