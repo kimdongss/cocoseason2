@@ -93,6 +93,28 @@
                             <input type="email" class="form-control" id="emailInput" name="email" 
                                    value="${member.email}" readonly>
                         </div>
+                        <!-- 회원등급 -->
+						<div class="mb-3">
+						    <label for="roleIdInput" class="form-label">회원등급 : 정회원(member), 준회원(guest)</label>
+						    <input type="text" class="form-control" id="roleIdInput" name="roleId" value="${member.roleId}" required>
+						</div>
+                        <!-- 전화번호 -->
+						<div class="mb-3">
+						    <label for="phoneInput" class="form-label">전화번호</label>
+						    <input type="tel" class="form-control" id="phoneInput" name="phone" value="${member.phone}" required>
+						</div>
+                        <!-- 주소 -->
+						<div class="mb-3">
+						    <label for="addressInput" class="form-label">주소</label>
+						    <input type="text" class="form-control" id="addressInput" name="address" value="${member.address}" required>
+						</div>
+						
+						
+						<!-- 가입일자 -->
+						<div class="mb-3">
+						    <label for="regDateInput" class="form-label">전화번호</label>
+						    <input type="text" class="form-control" id="regDateInput" name="regDate" value="${member.regDate}" required>
+						</div>
                         <!-- 버튼 섹션 -->
                         <div class="button-container">
                             <button id="updateButton" type="button" class="btn btn-update">수정</button>
