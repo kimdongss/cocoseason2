@@ -51,8 +51,19 @@
 	                         <button id="adminButton" class="btn btn-warning btn-sm">관리자</button>
 	                     </c:if>
                         <button id="logoutButton" class="btn btn-danger btn-sm">로그아웃</button>
-                         <!-- 장바구니로 가는 버튼 추가 -->
-                        <a href="<c:url value='/cart/view' />" class="btn btn-primary btn-sm">장바구니</a>
+						<!-- 장바구니로 가는 버튼 -->
+						<c:choose>
+						    <c:when test="${sessionScope.loginUser.roleId == 'admin' || sessionScope.loginUser.roleId == 'member'}">
+						        <a href="<c:url value='/cart/view' />" class="btn btn-primary btn-sm">장바구니</a>
+						    </c:when>
+						    <c:otherwise>
+						        <!-- 비회원 또는 권한 없는 사용자에 대한 메시지 -->
+						        <button type='button' class='btn btn-primary btn-sm'
+						                onclick='alert("정회원만 장바구니에 담을 수 있습니다. 유료회원 가입문의 DM주세요🙏");'>장바구니</button>
+						    </c:otherwise>
+						</c:choose>
+
+                        
                     </c:when>
                     <c:otherwise>
                         <button id="loginButton" class="btn btn-primary btn-sm">로그인</button>
