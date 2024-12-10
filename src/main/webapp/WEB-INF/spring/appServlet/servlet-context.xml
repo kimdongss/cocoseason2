@@ -68,6 +68,7 @@
             <mvc:mapping path="/board/insert" />
             <mvc:mapping path="/board/update" />
             <mvc:mapping path="/board/delete" />
+            <mvc:mapping path="/board/reply" />
             <!-- 상품의 저장/수정/삭제 관련 요청 (관리자만 접근가능)-->
             <mvc:mapping path="/product/create" />
             <mvc:mapping path="/product/update" /> 
