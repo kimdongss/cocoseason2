@@ -1,6 +1,7 @@
 package com.javalab.board.controller;
 
 import java.util.List;
+
 import java.util.Locale;
 
 import javax.servlet.http.HttpSession;
@@ -12,6 +13,7 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.SessionAttribute;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.javalab.board.dto.Criteria;
@@ -262,12 +264,26 @@ public class BoardController {
 	 * - 게시물 번호를 받아서 해당 게시물을 삭제
 	 */
 	@PostMapping("/delete")
-	public String deleteBoard(int boardNo) {
-		// 게시물 삭제
-		service.deleteBoard(boardNo);
-		// 게시물 목록 컨트롤러 요청
-		return "redirect:/board/list";
-	}	
+	public String deleteBoard(int boardNo, HttpSession session, RedirectAttributes redirectAttributes) {
+	    // 세션에서 로그인 사용자 정보 가져오기
+	    MemberVo loginUser = (MemberVo) session.getAttribute("loginUser");
+	    
+	    // 로그인 사용자 roleId 확인
+	    String roleId = loginUser.getRoleId();
+
+	    // admin이 아닌 경우 삭제 권한이 없으므로 에러 메시지 추가
+	    if (roleId == null || !roleId.equals("admin")) {
+	        redirectAttributes.addFlashAttribute("errorMessage", "삭제 권한이 없습니다.");
+	        return "redirect:/board/view?boardNo=" + boardNo; // 게시물 상세 보기로 이동
+	    }
+
+	    // 삭제 권한이 있는 경우 게시물 삭제
+	    service.deleteBoard(boardNo);
+
+	    // 게시물 목록으로 리다이렉트
+	    return "redirect:/board/list";
+	}
+
 	
 	
 	/**
