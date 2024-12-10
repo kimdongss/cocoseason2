@@ -146,6 +146,13 @@
         // 로그인/로그아웃 버튼 이벤트 처리
         const loginButton = document.getElementById('loginButton');
         const logoutButton = document.getElementById('logoutButton');
+        const insertMemberButton = document.getElementById('insertMemberButton'); // 회원가입
+
+        if (insertMemberButton) {
+        	insertMemberButton.addEventListener('click', function() {
+                window.location.href = "<c:url value='/member/insert' />";
+            });
+        }
 
         if (loginButton) {
             loginButton.addEventListener('click', function () {
