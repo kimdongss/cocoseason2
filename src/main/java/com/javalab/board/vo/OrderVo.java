@@ -23,5 +23,5 @@ public class OrderVo implements Serializable {
     private Integer quantity;   // 수량
     private String address;     // 배송 주소
     private String phone;       // 전화번호
-    private Date orderDate;     // 주문 날짜
+//    private Date orderDate;     // 주문 날짜
 }

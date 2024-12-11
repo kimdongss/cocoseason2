@@ -112,12 +112,49 @@
 </head>
 <body>
     <div class="container mt-5">
+
         <!-- 상단 섹션 -->
     <div class="top-section">
         <!-- 로고 -->
         <a href="<c:url value='/product/list' />">
 		    <img src="<c:url value='/resources/image/costcologo.png' />" alt="Logo" class="logo">
 		</a>
+
+        <!-- 페이지 헤더 -->
+        <header class="d-flex justify-content-between align-items-center mb-3">
+            <h1>상품 목록</h1>
+            <!-- 로그인/로그아웃 버튼 -->
+            <div>
+                <c:choose>
+                    <c:when test="${not empty loginUser}">
+                        <span class="me-2 text-secondary">${sessionScope.loginUser.memberId}님</span>
+                        <!-- 관리자 권한이 있는 경우 "관리자" 버튼 추가 -->
+	                     <c:if test="${sessionScope.loginUser.roleId == 'admin'}">
+	                         <button id="adminButton" class="btn btn-warning btn-sm">관리자</button>
+	                     </c:if>
+                        <button id="logoutButton" class="btn btn-danger btn-sm">로그아웃</button>
+						<!-- 장바구니로 가는 버튼 -->
+						<c:choose>
+						    <c:when test="${sessionScope.loginUser.roleId == 'admin' || sessionScope.loginUser.roleId == 'member'}">
+						        <a href="<c:url value='/cart/view' />" class="btn btn-primary btn-sm">장바구니</a>
+						    </c:when>
+						    <c:otherwise>
+						        <!-- 비회원 또는 권한 없는 사용자에 대한 메시지 -->
+						        <button type='button' class='btn btn-primary btn-sm'
+						                onclick='alert("정회원만 장바구니에 담을 수 있습니다. 유료회원 가입문의 DM주세요🙏");'>장바구니</button>
+						    </c:otherwise>
+						</c:choose>
+
+                        
+                    </c:when>
+                    <c:otherwise>
+                        <button id="loginButton" class="btn btn-primary btn-sm">로그인</button>
+                        <button id="insertMemberButton" class="btn btn-primary btn-sm">회원가입</button>
+                    </c:otherwise>
+                </c:choose>
+            </div>
+        </header>
+>>>>>>> refs/heads/kimdongss2
 
         <!-- 검색창 -->
         <div class="search-container">
@@ -253,7 +290,7 @@
                     </ul>
                 </div>
                 <div class="col-md-3">
-                    <h6>매장 & 서비스</h6>
+					<h6>매장 &amp; 서비스</h6>
                     <ul class="list-unstyled">
                         <li><a href="#" class="text-dark">매장 안내</a></li>
                         <li><a href="#" class="text-dark">로드쇼 행사</a></li>
@@ -276,6 +313,12 @@
         const logoutButton = document.getElementById('logoutButton');
         const adminButton = document.getElementById('adminButton'); // 관리자
         const insertMemberButton = document.getElementById('insertMemberButton'); // 회원가입
+
+        if (insertMemberButton) {
+        	insertMemberButton.addEventListener('click', function() {
+                window.location.href = "<c:url value='/member/insert' />";
+            });
+        }
 
         if (loginButton) {
             loginButton.addEventListener('click', function () {
