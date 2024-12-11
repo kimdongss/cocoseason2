@@ -122,10 +122,10 @@
 
         <!-- 페이지 헤더 -->
         <header class="d-flex justify-content-between align-items-center mb-3">
-            <h1>상품 목록</h1>
+            <!-- <h1>상품 목록</h1> -->
             <!-- 로그인/로그아웃 버튼 -->
             <div>
-                <c:choose>
+<%--                 <c:choose>
                     <c:when test="${not empty loginUser}">
                         <span class="me-2 text-secondary">${sessionScope.loginUser.memberId}님</span>
                         <!-- 관리자 권한이 있는 경우 "관리자" 버튼 추가 -->
@@ -151,10 +151,10 @@
                         <button id="loginButton" class="btn btn-primary btn-sm">로그인</button>
                         <button id="insertMemberButton" class="btn btn-primary btn-sm">회원가입</button>
                     </c:otherwise>
-                </c:choose>
+                </c:choose> --%>
             </div>
         </header>
->>>>>>> refs/heads/kimdongss2
+
 
         <!-- 검색창 -->
         <div class="search-container">
@@ -194,7 +194,7 @@
             <a href="#">그로서리</a>
             <a href="#">스페셜 할인</a>
             <a href="#">신상품</a>
-            <a href="#">타이어</a>
+            <a href="http://kimdongss.dothome.co.kr/project.tire_shop.html">타이어</a>
             <a href="#">Same-Day(당일배송)</a>
             <a href="#">매장 이벤트</a>
             <a href="/product/list">전체보기</a>

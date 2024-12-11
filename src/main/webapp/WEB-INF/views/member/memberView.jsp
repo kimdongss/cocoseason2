@@ -113,7 +113,7 @@
 						
 						<!-- 가입일자 -->
 						<div class="mb-3">
-						    <label for="regDateInput" class="form-label">전화번호</label>
+						    <label for="regDateInput" class="form-label">가입일자ㄴ</label>
 						    <input type="text" class="form-control" id="regDateInput" name="regDate" value="${member.regDate}" required>
 						</div>
 
