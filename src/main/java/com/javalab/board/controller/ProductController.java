@@ -89,10 +89,23 @@ public class ProductController {
 	 * 상품 목록 조회
 	 */
 	@GetMapping("/list")
-	public String listProducts(Model model) {
-		List<ProductVo> productList = productService.getAllProducts();
-		model.addAttribute("productList", productList);
-		return "/product/productList";
+	public String listProducts(Model model, HttpSession session) {
+	    List<ProductVo> productList = productService.getAllProducts();
+	    
+	    // 세션에서 로그인된 사용자 정보를 가져옴
+	    MemberVo loginUser = (MemberVo) session.getAttribute("loginUser");
+
+	    // 로그인된 사용자가 정회원 또는 관리자인지 확인
+	    boolean showCartButton = false;
+	    if (loginUser != null && (loginUser.getRoleId().equals("member") || loginUser.getRoleId().equals("admin"))) {
+	        showCartButton = true;
+	    }
+
+	    // 모델에 데이터 추가
+	    model.addAttribute("productList", productList);
+	    model.addAttribute("showCartButton", showCartButton);  // 장바구니 버튼을 표시할지 여부
+
+	    return "/product/productList";
 	}
 	
 	/*

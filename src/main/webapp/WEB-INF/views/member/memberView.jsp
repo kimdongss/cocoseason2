@@ -93,6 +93,15 @@
                             <input type="email" class="form-control" id="emailInput" name="email" 
                                    value="${member.email}" readonly>
                         </div>
+                        <!-- 등급 -->
+                        <div class="mb-3" >
+                            <label for="role" class="form-label">등급</label></br>
+                            <select id="role" name="role" size="1" class="form-control" >
+                                <option value=admin disabled="disabled" <c:if test="${member.roleId == 'admin'}">selected</c:if>>관리자</option>
+								<option value=member disabled="disabled" <c:if test="${member.roleId == 'member'}">selected</c:if>>정회원</option>
+								<option value=guest disabled="disabled" <c:if test="${member.roleId == 'guest'}">selected</c:if>>준회원</option>
+							</select>
+                        </div>
                         <!-- 버튼 섹션 -->
                         <div class="button-container">
                             <button id="updateButton" type="button" class="btn btn-update">수정</button>
