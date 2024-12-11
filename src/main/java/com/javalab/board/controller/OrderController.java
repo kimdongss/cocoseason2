@@ -23,7 +23,7 @@ public class OrderController {
     @Autowired
     private OrderService orderService;
 
-    @GetMapping("/place")
+    @PostMapping("/place")
     public String placeOrder(Model model, @SessionAttribute("loginUser") MemberVo loginUser) {
         // 사용자의 장바구니 아이템을 가져옵니다.
         List<ShoppingCartVo> cartItems = orderService.getCartItemsForOrder(loginUser.getMemberId());
@@ -34,7 +34,7 @@ public class OrderController {
         }
 
         model.addAttribute("cartItems", cartItems);
-        return "order/orderForm"; // 주문 페이지로 이동
+        return "order/orderList"; // 주문 페이지로 이동
     }
 
     @GetMapping("/list")
