@@ -28,7 +28,7 @@ public class OrderServiceImpl implements OrderService {
 	@Override
 	public List<OrderVo> getAllOrders() {
 	    return orderRepository.selectAllOrders(); // 모든 주문 반환 
-	   }
+	}
 	
 	@Override
 	public List<OrderVo> getOrdersByMember(String memberId) {
@@ -39,4 +39,20 @@ public class OrderServiceImpl implements OrderService {
     public List<ShoppingCartVo> getCartItemsForOrder(String memberId) {
         return cartService.getCartItems(memberId); // CartService에서 장바구니 아이템을 가져옵니다.
     }
+	
+	@Override
+	public void deleteOrder(Long orderId) {
+	    orderRepository.deleteOrder(orderId); // 레포지토리 호출하여 주문 삭제
+	}
+	
+    @Override
+    public void updateOrderQuantity(Long orderId, int quantity) {
+    	orderRepository.updateOrderQuantity(orderId, quantity);  // DB에서 수량 업데이트
+    }
+
+	@Override
+	public OrderVo getAllOrders(String memberId, Long productId) {
+		// TODO Auto-generated method stub
+		return null;
+	}
 }

@@ -1,6 +1,9 @@
 package com.javalab.board.repository;
 
 import java.util.List;
+
+import org.apache.ibatis.annotations.Param;
+
 import com.javalab.board.vo.OrderVo;
 
 /**
@@ -11,4 +14,8 @@ public interface OrderRepository {
     void insertOrder(OrderVo order); // 주문 추가
     List<OrderVo> selectAllOrders(); // 모든 주문 조회
     List<OrderVo> selectOrdersByMember(String memberId); // 특정 회원의 주문 조회
+    void deleteOrder(Long orderId);
+    void updateOrderQuantity(
+    		@Param("spCartId") Long spCartId, 
+    		@Param("quantity") int quantity);
 }

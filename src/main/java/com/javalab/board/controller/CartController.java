@@ -42,8 +42,6 @@ public class CartController {
         
         return "cart/cartView"; // JSP 페이지로 이동
     }
-    
-    
     @GetMapping("/remove")
     public String removeFromCart(@RequestParam Long spCartId) {
         cartService.removeFromCart(spCartId); 

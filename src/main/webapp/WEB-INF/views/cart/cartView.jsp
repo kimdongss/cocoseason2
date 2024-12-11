@@ -78,6 +78,12 @@
             <p>장바구니에 상품이 없습니다.</p>
         </c:if>
         
+        <!-- 주문하기 버튼 추가 -->
+		<c:if test="${not empty cartItems}">
+		    <form action="<c:url value='/order/place'/>" method="post">
+		        <button type="submit" class="btn btn-success mt-3">주문하기</button>
+		    </form>
+		</c:if>
         <!-- 상품 목록으로 돌아가기 버튼 (다른 페이지로 이동할 수 있게 함) -->
         <a href="<c:url value='/product/list'/>" class="btn btn-primary mt-3">상품 목록으로 돌아가기</a>
     </div>

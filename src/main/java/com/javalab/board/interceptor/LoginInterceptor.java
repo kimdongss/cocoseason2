@@ -82,8 +82,11 @@ public class LoginInterceptor extends HandlerInterceptorAdapter {
         	log.info("권한없음 roleId : " + roleId);
         	response.sendRedirect(request.getContextPath() + "/board/list"); // 일반사용자가 회원관련 요청시 게시물 목록으로 강제 이동
         	return false;
+        } else if(!roleId.equals("admin") && requestUri.startsWith(request.getContextPath()+"/order/admin")) {
+        	log.info("권한없음 roleId : " + roleId);
+        	response.sendRedirect(request.getContextPath() + "/cart/view"); // 일반사용자가 회원관련 요청시 게시물 목록으로 강제 이동
+        	return false;
         }
-        		
         //여기까지 왔으면 세션에 사용자 정보 있음. 즉, 로그인한 사용자
         log.info("세션에 사용자 정보 있으므로 요청 처리");
         return true; // 요청된 메소드로 갈수 있다. true이니까

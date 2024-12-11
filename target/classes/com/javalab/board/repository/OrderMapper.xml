@@ -27,14 +27,27 @@
         #{phone})
     </insert>
 
+	<!-- 모든 주문 조회 -->
     <select id="selectAllOrders" resultType="com.javalab.board.vo.OrderVo">
         SELECT * 
         FROM ORDER_INFO
     </select>
 
+	<!-- 특정 회원의 주문 조회 -->
     <select id="selectOrdersByMember" resultType="com.javalab.board.vo.OrderVo">
         SELECT * 
         FROM ORDER_INFO 
         WHERE MEMBER_ID = #{memberId}
     </select>
+    
+    <delete id="deleteOrder" parameterType="long">
+    DELETE FROM ORDER_INFO WHERE ORDER_ID = #{orderId}
+	</delete>
+	<update id="updateOrderQuantity">
+        UPDATE ORDER_INFO 
+        SET QUANTITY = #{quantity}
+        WHERE ORDER_ID = #{orderId}
+    </update>
+
+	
 </mapper>
