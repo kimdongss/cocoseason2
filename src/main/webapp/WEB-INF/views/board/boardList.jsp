@@ -198,7 +198,7 @@
             <a href="#">신상품</a>
             <a href="http://kimdongss.dothome.co.kr/project.tire_shop.html">타이어</a>
             <a href="#">Same-Day(당일배송)</a>
-            <a href="/product/list">상품보러가기</a>
+            <a href="/product/list">상품 보러가기</a>
             <a href="/board/list">Q &amp; A</a>
         </div>
     </div>
