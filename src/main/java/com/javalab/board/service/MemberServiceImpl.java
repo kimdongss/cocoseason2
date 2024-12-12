@@ -1,7 +1,9 @@
 package com.javalab.board.service;
 
+import java.lang.reflect.Member;
 import java.util.List;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.javalab.board.repository.MemberRepository;
@@ -45,9 +47,14 @@ public class MemberServiceImpl implements MemberService {
     public int updateMember(MemberVo memberVo) {
         return repository.updateMember(memberVo);
     }
+    @Override
+    public int updateMyInfo(MemberVo memberVo) {
+    	return repository.updateMember(memberVo);
+    }
 
     @Override
     public int deleteMember(String memberId) {
         return repository.deleteMember(memberId);
     }
+
 }

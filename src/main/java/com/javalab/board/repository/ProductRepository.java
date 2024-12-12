@@ -5,6 +5,8 @@ import java.util.List;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 
+import com.javalab.board.dto.Criteria;
+import com.javalab.board.vo.BoardVo;
 import com.javalab.board.vo.ImgVo;
 import com.javalab.board.vo.ProductVo;
 import com.javalab.board.vo.ProductWithImageVo;
@@ -36,5 +38,9 @@ public interface ProductRepository {
     // 상품 삭제
     void deleteProduct(@Param("productId") Long productId);
 
+    // 게시물 목록 조회(페이징)
+ 	public List<ProductVo> getProductListPaging(Criteria cri);
+ 	// 게시물 총건수
+ 	public int getTotalProductCount(Criteria cri);
 }
 

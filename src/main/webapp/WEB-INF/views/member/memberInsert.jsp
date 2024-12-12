@@ -93,6 +93,10 @@
 	            const name = $("#nameInput").val().trim();
 	            const email = $("#emailInput").val().trim();
 	            const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+	            const address = $("#addressInput").val().trim();
+	            const phone = $("#phoneInput").val().trim();
+	            const phoneRegex = /^010-\d{4}-\d{4}$/; // 010으로 시작하고 하이픈이 정확한 위치에 있는지 검사
+
 
 	            if (!isIdChecked) {
 	                alert("아이디 중복 확인을 진행해주세요.");
@@ -127,6 +131,27 @@
 	            if (name === "") {
 	                alert("이름을 입력하세요.");
 	                $("#nameInput").focus();
+	                event.preventDefault();
+	                return false;
+	            }
+	            
+	            if (address === "") {
+	                alert("주소를 입력하세요.");
+	                $("#addressInput").focus();
+	                event.preventDefault();
+	                return false;
+	            }
+	            
+	            if (phone === "") {
+	                alert("전화번호를 입력하세요.");
+	                $("#phoneInput").focus();
+	                event.preventDefault();
+	                return false;
+	            }
+	            
+	            if (!phoneRegex.test(phone)) {
+	                alert("올바른 전화번호 형식을 입력하세요. (예: 010-1234-5678)");
+	                $("#phoneInput").focus();
 	                event.preventDefault();
 	                return false;
 	            }
@@ -166,13 +191,13 @@
 	                return;
 	            }
 				
-				alert('모든 데이터의 검증이 완료되어 서버를 호출합니다.');
+				alert('준회원으로 회원가입이 완료되었습니다. 유료회원 가입문의는 DM주세요🙏.');
 	
 			});
 	
 			// 취소 버튼 클릭 시 이벤트 처리
 			$('#cancelButton').on("click",	function() {
-						location.href = '<c:url value="/member/list" /> '; // 회원 목록 페이지로 이동
+						location.href = '<c:url value="/board/list" /> '; // 회원 목록 페이지로 이동
 			});
 			
 	    });	// end ready()
@@ -223,11 +248,23 @@
 									type="text" class="form-control" id="nameInput" name="name"
 									value="${member.name}" required>
 							</div>
+							
 							<!-- 이메일 -->
 							<div class="mb-3">
 								<label for="emailInput" class="form-label">이메일</label> <input
 									type="email" class="form-control" id="emailInput" name="email"
 									value="${member.email}" required>
+							</div>
+							<!-- 전화번호 -->
+							<div class="mb-3">
+							    <label for="phoneInput" class="form-label">전화번호</label>
+							    <input type="tel" class="form-control" id="phoneInput" name="phone" value="${member.phone}" required>
+							</div>
+							
+							<!-- 주소 -->
+							<div class="mb-3">
+							    <label for="addressInput" class="form-label">주소</label>
+							    <input type="text" class="form-control" id="addressInput" name="address" value="${member.address}" required>
 							</div>
 							<!-- 오류 메시지 -->
 							<c:if test="${not empty errorMessage}">

@@ -1,6 +1,7 @@
 package com.javalab.board.repository;
 
 import java.util.List;
+import java.util.Optional;
 
 import com.javalab.board.vo.MemberVo;
 
@@ -19,8 +20,11 @@ public interface MemberRepository {
     int insertMember(MemberVo memberVo);
     // 회원 수정
     int updateMember(MemberVo memberVo);
+    int updateMyInfo(MemberVo memberVo);
     // 회원 삭제
     int deleteMember(String memberId);
     // 회원 아이디 중복 여부
     int existsById(String memberId);
+       
+    
 }

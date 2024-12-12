@@ -41,7 +41,7 @@ public class HomeController {
 		DateFormat dateFormat = DateFormat.getDateTimeInstance(DateFormat.LONG, DateFormat.LONG, locale);
 		String formattedDate = dateFormat.format(date);
 		model.addAttribute("serverTime", formattedDate );
-        return "redirect:/home/main";
-	}	
-	
+		return "redirect:/home/main"; // 게시물 목록 재 요청 
+  }
+
 }

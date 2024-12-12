@@ -11,6 +11,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
 
+import com.javalab.board.dto.Criteria;
 import com.javalab.board.repository.ProductRepository;
 import com.javalab.board.vo.ImgVo;
 import com.javalab.board.vo.ProductVo;
@@ -213,4 +214,17 @@ public class ProductServiceImpl implements ProductService {
             throw new RuntimeException("상품 삭제 실패", e); // 트랜잭션 롤백을 위해 런타임 예외 발생
         }
     }
+
+	@Override
+	public List<ProductVo> getProductListPaging(Criteria cri) {
+		List<ProductVo> productlist = productRepository.getProductListPaging(cri);
+		return productlist;
+	}
+
+	@Override
+	public int getTotalProductCount(Criteria cri) {
+		return this.productRepository.getTotalProductCount(cri);
+	}
+    
+    
 }

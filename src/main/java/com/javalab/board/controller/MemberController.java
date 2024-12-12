@@ -1,5 +1,6 @@
 package com.javalab.board.controller;
 
+import java.lang.reflect.Member;
 import java.net.URLEncoder;
 import java.nio.charset.StandardCharsets;
 import java.util.List;
@@ -58,7 +59,30 @@ public class MemberController {
         model.addAttribute("member", member);
         return "member/memberView"; // JSP 이름
     }
+    
+    /**
+     * 마이페이지 보기
+     * @RequestParam : 클라이언트에서 전달된 파라미터를 추출
+     */
+    @GetMapping("/mypage")
+    public String showMemberInfo(HttpSession session, Model model) {
+        // 세션에서 로그인한 사용자 정보 가져오기
+        MemberVo loginUser = (MemberVo) session.getAttribute("loginUser");
 
+        // 로그인되지 않은 사용자라면 로그인 페이지로 리다이렉트
+        if (loginUser == null) {
+            return "redirect:/login";
+        }
+
+        // 로그인한 사용자의 ID로 해당 회원 정보 조회
+        MemberVo member = memberService.getMember(loginUser.getMemberId());
+
+        // 조회된 회원 정보를 모델에 추가
+        model.addAttribute("member", member);
+
+        // 마이페이지 화면으로 이동
+        return "member/memberMyPageView"; // JSP 페이지 이름
+    }
     /**
      * 회원 등록 폼
      */
@@ -122,6 +146,32 @@ public class MemberController {
             model.addAttribute("errorMessage", "회원 수정 중 오류가 발생했습니다.");
             return "member/memberUpdate"; // 오류 발생 시 수정 폼으로 다시 이동
         }
+    }
+    /**
+     * 내정보 수정 폼
+     * @RequestParam : 회원 ID를 받아 기존 데이터 조회
+     */
+    @GetMapping("/myInfoUpdate")
+    public String updateMyInfoForm(@RequestParam("memberId") String memberId, Model model) {
+    	MemberVo member = memberService.getMember(memberId);
+    	model.addAttribute("member", member);
+    	return "member/memberMyPageUpdate"; // JSP 이름
+    }
+    
+    /**
+     * 내정보 수정 처리
+     * @ModelAttribute : 폼 데이터를 MemberVo 객체로 매핑
+     * 잘못 입력된 경우 기존 입력 데이터를 유지
+     */
+    @PostMapping("/myInfoUpdate")
+    public String updateMyInfo(@ModelAttribute("member") MemberVo memberVo, Model model) {
+    	try {
+    		memberService.updateMember(memberVo);
+    		return "redirect:/member/list"; // 성공 시 회원 목록을 보여주는 메소드 호출
+    	} catch (Exception e) {
+    		model.addAttribute("errorMessage", "회원 수정 중 오류가 발생했습니다.");
+    		return "member/memberMyPageUpdate"; // 오류 발생 시 수정 폼으로 다시 이동
+    	}
     }
 
     /**

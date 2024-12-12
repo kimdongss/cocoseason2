@@ -64,7 +64,7 @@
             <div class="col-md-8">
                 <div class="card">
                     <div class="card-header text-center">
-                        <h3>게시물 작성</h3>
+                        <h3>질문 작성</h3>
                     </div>
                     <div class="card-body">
                         <form id="insertForm" action="<c:url value='/board/insert' />" method="post">

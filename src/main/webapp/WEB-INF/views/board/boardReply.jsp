@@ -99,9 +99,9 @@
                             </div>
 
                             <!-- 숨겨진 필드 (계층 구조 정보) -->
-                            <input type="hidden" name="replyGroup" value="${replyBoard.replyGroup}">
-                            <input type="hidden" name="replyOrder" value="${replyBoard.replyOrder}">
-                            <input type="hidden" name="replyIndent" value="${replyBoard.replyIndent}">
+                            <input type="hidden" name="replyGroup" value="${parentBoard.replyGroup}">
+                            <input type="hidden" name="replyOrder" value="${parentBoard.replyOrder}">
+                            <input type="hidden" name="replyIndent" value="${parentBoard.replyIndent}">
 
                             <!-- 버튼 -->
                             <div class="d-flex justify-content-between">
