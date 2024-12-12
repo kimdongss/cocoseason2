@@ -1,0 +1,3 @@
+# class 파일 제외
+*.class
+*.properties

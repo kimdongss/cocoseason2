@@ -120,10 +120,11 @@
 </head>
 <body>
     <div class="container mt-5">
+        <h1>질의응답 게시판</h1>
         <!-- 상단 섹션 -->
     	<div class="top-section">
 	        <!-- 로고 -->
-	        <a href="<c:url value='/board/list' />">
+	        <a href="<c:url value='/home/main' />">
 			    <img src="<c:url value='/resources/image/costcologo.png' />" alt="Logo" class="logo">
 			</a>
 

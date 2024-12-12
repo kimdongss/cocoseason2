@@ -19,7 +19,7 @@
                         <h3>회원 수정</h3>
                     </div>
                     <div class="card-body">
-                        <form id="updateForm" action="<c:url value='/member/update' />" method="post">
+                        <form id="updateForm" action="<c:url value='/member/myInfoUpdate' />" method="post">
                             <!-- 아이디 -->
                             <input type="hidden" name="memberId" value="${member.memberId}">
                             <div class="mb-3">

@@ -120,7 +120,7 @@
                                 <input type="hidden" name="memberId" value="${member.memberId}">
                                 <button id="deleteButton" type="submit" class="btn btn-delete">삭제</button>
                             </form>
-                            <button id="listButton" type="button" class="btn btn-list">목록으로</button>
+                            <button id="listButton" type="button" class="btn btn-list">홈으로</button>
                         </div>
                     </div>
                 </div>
@@ -144,7 +144,7 @@
 
         // 목록 버튼 클릭 시, 회원 목록 페이지로 이동
         document.getElementById("listButton").addEventListener("click", function() {
-            location.href = "<c:url value='/member/' />";
+            location.href = "<c:url value='/home/main' />";
         });
     </script>
 </body>
