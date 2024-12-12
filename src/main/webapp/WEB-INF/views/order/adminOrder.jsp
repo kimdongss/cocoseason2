@@ -48,9 +48,9 @@
                             <td><fmt:formatNumber value="${order.unitPrice}" type="currency" currencySymbol="₩" /></td>
                             <td>
                                 <!-- 수량 조정 버튼 추가 -->
-                                <button class="btn btn-sm btn-secondary decrease-quantity" data-orderid="${order.orderId}" data-unitprice="${order.unitPrice}">-</button>
+                                <%-- <button class="btn btn-sm btn-secondary decrease-quantity" data-orderid="${order.orderId}" data-unitprice="${order.unitPrice}">-</button> --%>
                                 <span class="quantity">${order.quantity}</span>
-                                <button class="btn btn-sm btn-secondary increase-quantity" data-orderid="${order.orderId}" data-unitprice="${order.unitPrice}">+</button>
+                                <%-- <button class="btn btn-sm btn-secondary increase-quantity" data-orderid="${order.orderId}" data-unitprice="${order.unitPrice}">+</button> --%>
                             </td>
                             <!-- 총 가격 (단가 * 수량) 표시 (통화 형식으로 포맷팅) -->
                             <td class="subtotal"><fmt:formatNumber value="${order.unitPrice * order.quantity}" type="currency" currencySymbol="₩" /></td>
@@ -161,7 +161,7 @@
         </c:if>
 
         <!-- 장바구니 페이지로 돌아가는 버튼 (다른 페이지로 이동할 수 있게 함) -->
-        <a href="<c:url value='/cart/view'/>" class="btn btn-primary mt-3">장바구니로 돌아가기</a>
+        <a href="<c:url value='/admin'/>" class="btn btn-primary mt-3">관리자 페이지로 돌아가기</a>
     </div>
 
 </body>

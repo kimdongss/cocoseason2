@@ -15,6 +15,8 @@ public interface MemberService {
     MemberVo getMember(String memberId);
     int insertMember(MemberVo memberVo);
     int updateMember(MemberVo memberVo);
+    int updateMyInfo(MemberVo memberVo);
+    
     int deleteMember(String memberId);
     boolean isMemberIdDuplicated(String memberId);
 }
