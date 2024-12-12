@@ -59,11 +59,19 @@
                         <h3>회원 정보 보기</h3>
                     </div>
                     <div class="card-body">
-                        <!-- 로그인 체크 -->
+                        <!-- 로그인 체크: 로그인된 사용자가 아니면 로그인 페이지로 리다이렉트 -->
                         <c:if test="${sessionScope.loginUser == null}">
                             <script>
                                 alert("로그인 후에 접근할 수 있습니다.");
                                 location.href = "<c:url value='/login' />";
+                            </script>
+                        </c:if>
+
+                        <!-- 권한 체크: admin인 경우, 'member/list'로 리다이렉트 -->
+                        <c:if test="${sessionScope.loginUser != null and sessionScope.loginUser.roleId == 'admin'}">
+                            <script>
+                                alert("관리자는 마이페이지에 접근할 수 없습니다.");
+                                location.href = "<c:url value='/member/list' />"; // admin일 경우 'member/list'로 리다이렉트
                             </script>
                         </c:if>
 
@@ -98,13 +106,13 @@
                         <!-- 전화번호 -->
                         <div class="mb-3">
                             <label for="phoneInput" class="form-label">전화번호</label>
-                            <input type="tel" class="form-control" id="phoneInput" name="phone" value="${member.phone}" required>
+                            <input type="tel" class="form-control" id="phoneInput" name="phone" value="${member.phone}" readonly>
                         </div>
 
                         <!-- 주소 -->
                         <div class="mb-3">
                             <label for="addressInput" class="form-label">주소</label>
-                            <input type="text" class="form-control" id="addressInput" name="address" value="${member.address}" required>
+                            <input type="text" class="form-control" id="addressInput" name="address" value="${member.address}" readonly>
                         </div>
 
                         <!-- 가입일자 -->

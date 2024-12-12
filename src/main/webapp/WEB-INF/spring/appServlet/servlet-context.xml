@@ -78,7 +78,8 @@
             <!-- <mvc:mapping path="/order/list" /> -->
             <!-- 회원전체 주문 목록 요청 -->
             <mvc:mapping path="/order/admin" />
-            
+            <!-- 일반사용자가 관리자페이지 접근 -> 마이페이지로 보내버림 -->
+            <mvc:mapping path="/admin" />
             <!-- 제외 경로 -->
             <mvc:exclude-mapping path="/resources/**"/>
             <!-- Interceptor 클래스 -->

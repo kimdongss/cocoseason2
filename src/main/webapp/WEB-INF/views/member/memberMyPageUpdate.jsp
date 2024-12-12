@@ -19,6 +19,21 @@
                         <h3>회원 수정</h3>
                     </div>
                     <div class="card-body">
+                     <!-- 로그인 체크: 로그인된 사용자가 아니면 로그인 페이지로 리다이렉트 -->
+                        <c:if test="${sessionScope.loginUser == null}">
+                            <script>
+                                alert("로그인 후에 접근할 수 있습니다.");
+                                location.href = "<c:url value='/login' />";
+                            </script>
+                        </c:if>
+
+                        <!-- 권한 체크: admin인 경우, 'member/list'로 리다이렉트 -->
+                        <c:if test="${sessionScope.loginUser != null and sessionScope.loginUser.roleId == 'admin'}">
+                            <script>
+                                alert("관리자는 마이페이지에 접근할 수 없습니다.");
+                                location.href = "<c:url value='/member/list' />"; // admin일 경우 'member/list'로 리다이렉트
+                            </script>
+                        </c:if>
                         <form id="updateForm" action="<c:url value='/member/myInfoUpdate' />" method="post">
                             <!-- 아이디 -->
                             <input type="hidden" name="memberId" value="${member.memberId}">
@@ -122,7 +137,7 @@
 
         // 취소 버튼 클릭 시 이벤트 처리
         document.getElementById("cancelButton").addEventListener("click", function() {
-            location.href = '<c:url value="/member/list" />'; // 회원 목록 페이지로 이동
+            location.href = '<c:url value="/member/mypage" />'; // 회원 목록 페이지로 이동
         });
     </script>
 </body>

@@ -215,5 +215,7 @@ public class MemberController {
         // ResponseEntity로 응답 반환 ok() : 응답상태코드 : 200, body 부분에 자동으로 responseVo 담긴다.
         return ResponseEntity.ok(responseVo); // HttpStatus.OK는 기본값
     }
+    
+    
 
 }

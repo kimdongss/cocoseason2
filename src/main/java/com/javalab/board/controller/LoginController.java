@@ -25,7 +25,7 @@ public class LoginController {
 
         if (loginUser != null) {
             // 이미 로그인된 경우 게시물 목록 페이지로 이동
-            return "redirect:/board/list";
+            return "redirect:/home/main";
         }
 
         // 로그인 폼으로 이동

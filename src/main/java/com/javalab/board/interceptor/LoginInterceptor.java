@@ -71,22 +71,27 @@ public class LoginInterceptor extends HandlerInterceptorAdapter {
         // 관리자가 아닌 일반사용자가 /member/** 와 같은 형태의 요청시 접근 차단 
         if(!roleId.equals("admin") && requestUri.startsWith(request.getContextPath()+"/member")) {
         	log.info("권한없음 roleId : " + roleId);
-        	response.sendRedirect(request.getContextPath() + "/board/list"); // 일반사용자가 회원관련 요청시 게시물 목록으로 강제 이동
+        	response.sendRedirect(request.getContextPath() + "/member/mypage"); // 일반사용자가 회원관련 요청시 게시물 목록으로 강제 이동
         	return false;
         	// 관리자가 아닌 일반사용자가 /product/** 와 같은 형태의 요청시 접근 차단 
         }else if(!roleId.equals("admin") && requestUri.startsWith(request.getContextPath()+"/product")) {
         	log.info("권한없음 roleId : " + roleId);
-        	response.sendRedirect(request.getContextPath() + "/product/list"); // 일반사용자가 회원관련 요청시 게시물 목록으로 강제 이동
+        	response.sendRedirect(request.getContextPath() + "/product/list"); // 일반사용자가 상품등록 못하게 하기 
         	return false;
         } else if(!roleId.equals("admin") && requestUri.startsWith(request.getContextPath()+"/board/reply")) {
         	log.info("권한없음 roleId : " + roleId);
-        	response.sendRedirect(request.getContextPath() + "/board/list"); // 일반사용자가 회원관련 요청시 게시물 목록으로 강제 이동
+        	response.sendRedirect(request.getContextPath() + "/board/list"); // 일반사용자가 질의응답게시판 답글 못달게하기
         	return false;
         } else if(!roleId.equals("admin") && requestUri.startsWith(request.getContextPath()+"/order/admin")) {
         	log.info("권한없음 roleId : " + roleId);
-        	response.sendRedirect(request.getContextPath() + "/cart/view"); // 일반사용자가 회원관련 요청시 게시물 목록으로 강제 이동
+        	response.sendRedirect(request.getContextPath() + "/order/my-orders"); // 일반사용자가 전체주문 접근시 내주문보기로 보내버림(아래 어드민하고 뎁스 수정해서 통합가능)
+        	return false;
+        } else if(!roleId.equals("admin") && requestUri.startsWith(request.getContextPath()+"/admin")) {
+        	log.info("권한없음 roleId : " + roleId);
+        	response.sendRedirect(request.getContextPath() + "member/mypage"); // 일반사용자가 관리자 페이지 접근시 마이페이지로 보내버림
         	return false;
         }
+
         //여기까지 왔으면 세션에 사용자 정보 있음. 즉, 로그인한 사용자
         log.info("세션에 사용자 정보 있으므로 요청 처리");
         return true; // 요청된 메소드로 갈수 있다. true이니까

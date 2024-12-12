@@ -147,7 +147,9 @@
 	                    <c:if test="${sessionScope.loginUser.roleId == 'admin'}">
 	                        <button id="adminButton" class="btn btn-warning btn-sm">관리자</button>
 	                    </c:if>
+	                    <a href="<c:url value='/cart/view' />" class="btn btn-primary btn-sm">장바구니</a>
 	                    <button id="logoutButton" class="btn btn-danger btn-sm">로그아웃</button>
+	                    <button id="memberButton" class="btn btn-warning btn-sm">마이페이지</button>
 	                </c:when>
 
 	                <c:otherwise>
@@ -301,6 +303,13 @@
         const logoutButton = document.getElementById('logoutButton');
         const adminButton = document.getElementById('adminButton'); // 관리자
         const insertMemberButton = document.getElementById('insertMemberButton'); // 회원가입
+    	const memberButton = document.getElementById('memberButton');
+
+   	 	if (memberButton) {
+           memberButton.addEventListener('click', function() {
+                window.location.href = "<c:url value='/member/mypage' />";
+               });
+           }
 
         if (loginButton) {
             loginButton.addEventListener('click', function() {

@@ -87,7 +87,7 @@
     	<!-- 상단 섹션 -->
     	<div class="top-section">
 	        <!-- 로고 -->
-	        <a href="<c:url value='/product/list' />">
+	        <a href="<c:url value='/home/main' />">
 			    <img src="<c:url value='/resources/image/costcologo.png' />" alt="Logo" class="logo">
 			</a>
 

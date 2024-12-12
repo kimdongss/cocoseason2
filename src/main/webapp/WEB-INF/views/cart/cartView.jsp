@@ -268,39 +268,13 @@
     const insertMemberButton = document.getElementById('insertMemberButton'); // 회원가입
     const cartButton = document.getElementById('cartButton');
     const memberButton = document.getElementById('memberButton');
-    if (loginButton) {
-        loginButton.addEventListener('click', function() {
-            window.location.href = "<c:url value='/login' />";
-        });
-    }
-    if (insertMemberButton) {
-    	insertMemberButton.addEventListener('click', function() {
-            window.location.href = "<c:url value='/member/insert' />";
-        });
-    }
- 	// 관리자 버튼 이벤트 핸들러
-    if (adminButton) {
-    	adminButton.addEventListener('click', function() {
-            window.location.href = "<c:url value='/admin' />";
-        });
-    }
-
-    if (logoutButton) {
-        logoutButton.addEventListener('click', function() {
-            window.location.href = "<c:url value='/logout' />";
-        });
-    }
-    if (cartButton) {
- 	   cartButton.addEventListener('click', function() {
-            window.location.href = "<c:url value='/cart/view' />";
-        });
-    }
+    
     if (memberButton) {
- 	   memberButton.addEventListener('click', function() {
-            window.location.href = "<c:url value='/member/mypage' />";
-        });
-    }
-    	
+        memberButton.addEventListener('click', function() {
+             window.location.href = "<c:url value='/member/mypage' />";
+         });
+     }
+    
     function main(){
         window.location.href = "/home/main";
      }
