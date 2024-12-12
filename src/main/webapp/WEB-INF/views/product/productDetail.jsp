@@ -97,7 +97,7 @@
                         </c:if>
 						
 						 <!-- 주문하기 버튼 추가 -->
-                        <c:if test="${sessionScope.loginUser != null}"> <!-- 로그인 상태 확인 -->
+                        <%-- <c:if test="${sessionScope.loginUser != null}"> <!-- 로그인 상태 확인 -->
                             <c:if test="${sessionScope.loginUser.roleId == 'member' || sessionScope.loginUser.roleId == 'admin'}"> <!-- 역할 확인 -->
                                 <form action="<c:url value='/order/place' />" method="post">
                                     <input type="hidden" name="productId" value="${product.productId}"/>
@@ -109,21 +109,21 @@
                                     <!-- 주문하기 버튼 -->
                                     <button type="submit" class="btn btn-primary mt-4">주문하기</button> 
                                 </form>
-                            </c:if>
+                            </c:if> --%>
 
                             <!-- 비회원 또는 권한 없는 사용자에 대한 메시지 -->
-                            <c:if test="${sessionScope.loginUser.roleId == 'guest'}">
+                            <%-- <c:if test="${sessionScope.loginUser.roleId == 'guest'}">
                                 <button type="button" class="btn btn-danger mt-4"
                                         onclick='alert("정회원만 주문할 수 있습니다.");'>주문하기</button>
                             </c:if>
 
-                        </c:if>
+                        </c:if> --%>
 
                         <!-- 비로그인 상태일 때 로그인 페이지로 이동 -->
-                        <c:if test="${sessionScope.loginUser == null}">
+                        <%-- <c:if test="${sessionScope.loginUser == null}">
                             <button type='button' class='btn btn-warning mt-4'
                                     onclick='location.href="<c:url value='/login' />";'>로그인 후 주문하기</button>
-                        </c:if>
+                        </c:if> --%>
                         
                         <!-- 장바구니 담기 버튼 추가 -->
                         <c:if test="${sessionScope.loginUser != null}"> <!-- 로그인 상태 확인 -->
@@ -156,11 +156,17 @@
 
                         <!-- 버튼 -->
                         <div class="d-flex justify-content-end gap-2 mt-4">
-                            <button id="updateButton" type="button" class="btn btn-update">수정</button>
-                            <form id="deleteForm" action="<c:url value='/product/delete' />" method="post" class="d-inline">
-                                <input type="hidden" name="productId" value="${product.productId}">
-                                <button id="deleteButton" type="submit" class="btn btn-delete">삭제</button>
-                            </form>
+                        	<!-- 수정 버튼 (roleId가 admin인 경우에만 표시) -->
+						    <c:if test="${sessionScope.loginUser != null and sessionScope.loginUser.roleId == 'admin'}">
+						        <button id="updateButton" type="button" class="btn btn-update">수정</button>
+						    </c:if>
+							<!-- 삭제 버튼 (roleId가 admin인 경우에만 표시) -->
+						    <c:if test="${sessionScope.loginUser != null and sessionScope.loginUser.roleId == 'admin'}">
+						        <form id="deleteForm" action="<c:url value='/product/delete' />" method="post" class="d-inline">
+						            <input type="hidden" name="productId" value="${product.productId}">
+						            <button id="deleteButton" type="submit" class="btn btn-delete">삭제</button>
+						        </form>
+						    </c:if>                            
                             <button id="listButton" type="button" class="btn btn-list">목록으로</button>
                         </div>
                     </div>

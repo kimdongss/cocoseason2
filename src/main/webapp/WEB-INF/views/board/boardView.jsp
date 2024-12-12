@@ -88,7 +88,10 @@
                                 <button id="deleteButton" type="submit" class="btn btn-delete">삭제</button>
                             </form>
                             <!-- 답글쓰기 버튼 -->
-    						<button id="replyButton" type="button" class="btn btn-warning">답글쓰기</button>
+    						<!-- 권한 체크: admin인 경우에만 '답글쓰기' 버튼을 표시 -->
+							<c:if test="${sessionScope.loginUser != null and sessionScope.loginUser.roleId == 'admin'}">
+							    <button id="replyButton" type="button" class="btn btn-warning">답글쓰기</button>
+							</c:if>
                             <button id="listButton" type="button" class="btn btn-list">목록으로</button>
                         </div>
                     </div>

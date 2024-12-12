@@ -87,7 +87,7 @@
                             <!-- 버튼 -->
                             <div class="d-flex justify-content-between">
                                 <button id="submitButton" type="submit" class="btn btn-primary">수정</button>
-                                <button id="cancelButton" type="button" class="btn btn-secondary">목록으로</button>
+                                <button id="cancelButton" type="button" class="btn btn-secondary">뒤로가기</button>
                             </div>
                         </form>
                     </div>
@@ -137,7 +137,7 @@
 
         // 취소 버튼 클릭 시 이벤트 처리
         document.getElementById("cancelButton").addEventListener("click", function() {
-            location.href = '<c:url value="/member/mypage" />'; // 회원 목록 페이지로 이동
+            location.href = '<c:url value="/member/mypage" />'; // 마이페이지 페이지로 이동
         });
     </script>
 </body>

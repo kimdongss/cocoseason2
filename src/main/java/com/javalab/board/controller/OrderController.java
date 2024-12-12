@@ -35,7 +35,7 @@ public class OrderController {
         
         if (cartItems.isEmpty()) {
             model.addAttribute("error", "장바구니에 상품이 없습니다.");
-            return "cart/view"; // 장바구니 페이지로 돌아갑니다.
+            return "cart/cartView"; // 장바구니 페이지로 돌아갑니다.
             
         }
 

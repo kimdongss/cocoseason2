@@ -144,9 +144,6 @@
 	                     <c:if test="${sessionScope.loginUser.roleId == 'admin'}">
                         <button id="adminButton" class="btn btn-warning btn-sm">관리자</button>
                      	</c:if>
-                     	<c:if test="${sessionScope.loginUser.roleId != 'admin'}">
-                        <button id="memberButton" class="btn btn-warning btn-sm">마이페이지</button>
-                     	</c:if>
 	                    <button id="logoutButton" class="btn btn-danger btn-sm">로그아웃</button>
 	                    <a href="<c:url value='/cart/view' />" class="btn btn-primary btn-sm">장바구니</a>
 	                </c:when>
@@ -223,6 +220,15 @@
                     </c:forEach>
                 </tbody>
             </table>
+            </c:if>
+            <!-- 주문 리스트가 비어있을 경우 안내 문구 표시 -->
+        <c:if test="${empty orderList}">
+            <p>주문이 없습니다.</p>
+        </c:if>
+
+        <!-- 장바구니 페이지로 돌아가는 버튼 (다른 페이지로 이동할 수 있게 함) -->
+        <a href="<c:url value='/admin'/>" class="btn btn-primary mt-3">관리자 페이지로 돌아가기</a>
+    </div>
             		<!-- 푸터 -->
 	    <footer class="footer">
 	        <div class="container">
@@ -265,13 +271,15 @@
 	            </div>
 	        </div>
 	    </footer>
-    </div>
+	    
+
 
             <!-- 삭제 확인 메시지와 함께 AJAX 요청 처리 -->
             <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
             <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 
             <script>
+            
                 $(document).ready(function() {
                     // 삭제 버튼 클릭 시 이벤트 처리
                     $('.delete-btn').click(function() {
@@ -352,25 +360,39 @@
                     }
                 });
                 
-                const memberButton = document.getElementById('memberButton');
+                const loginButton = document.getElementById('loginButton');
+                const logoutButton = document.getElementById('logoutButton');
+                const adminButton = document.getElementById('adminButton'); // 관리자
+                const insertMemberButton = document.getElementById('insertMemberButton'); // 회원가입
+        		
 
-                if (memberButton) {
-                      memberButton.addEventListener('click', function() {
-                           window.location.href = "<c:url value='/member/mypage' />";
-                       });
-                   }
+                if (loginButton) {
+                    loginButton.addEventListener('click', function() {
+                        window.location.href = "<c:url value='/login' />";
+                    });
+                }
+                if (insertMemberButton) {
+                	insertMemberButton.addEventListener('click', function() {
+                        window.location.href = "<c:url value='/member/insert' />";
+                    });
+                }
+             	// 관리자 버튼 이벤트 핸들러
+                if (adminButton) {
+                	adminButton.addEventListener('click', function() {
+                        window.location.href = "<c:url value='/admin' />";
+                    });
+                }
+
+                if (logoutButton) {
+                    logoutButton.addEventListener('click', function() {
+                        window.location.href = "<c:url value='/logout' />";
+                    });
+                }
             </script>
 
-        </c:if>
+        
 
-        <!-- 주문 리스트가 비어있을 경우 안내 문구 표시 -->
-        <c:if test="${empty orderList}">
-            <p>주문이 없습니다.</p>
-        </c:if>
-
-        <!-- 장바구니 페이지로 돌아가는 버튼 (다른 페이지로 이동할 수 있게 함) -->
-        <a href="<c:url value='/admin'/>" class="btn btn-primary mt-3">관리자 페이지로 돌아가기</a>
-    </div>
+        
 
 </body>
 </html>

@@ -36,8 +36,9 @@
 	<!-- 특정 회원의 주문 조회 -->
     <select id="selectOrdersByMember" resultType="com.javalab.board.vo.OrderVo">
         SELECT * 
-        FROM ORDER_INFO 
-        WHERE MEMBER_ID = #{memberId}
+    	FROM ORDER_INFO 
+    	WHERE MEMBER_ID = #{memberId}
+    	ORDER BY ORDER_ID DESC
     </select>
     
     <delete id="deleteOrder" parameterType="long">

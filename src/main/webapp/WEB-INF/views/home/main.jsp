@@ -317,7 +317,7 @@
             window.location.href = "/home/main";
          }
          function costco(){
-            window.location.href = "https://www.costco.co.kr/ExecutiveMembership";
+            window.location.href = "#";
          }
          function Product1(){
         	 window.location.href = "/product/detail/2";

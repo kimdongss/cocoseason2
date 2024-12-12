@@ -149,7 +149,9 @@
 	                    </c:if>
 	                    <a href="<c:url value='/cart/view' />" class="btn btn-primary btn-sm">장바구니</a>
 	                    <button id="logoutButton" class="btn btn-danger btn-sm">로그아웃</button>
-	                    <button id="memberButton" class="btn btn-warning btn-sm">마이페이지</button>
+	                    <c:if test="${sessionScope.loginUser.roleId != 'admin'}">
+                        <button id="memberButton" class="btn btn-warning btn-sm">마이페이지</button>
+                     	</c:if>
 	                </c:when>
 
 	                <c:otherwise>

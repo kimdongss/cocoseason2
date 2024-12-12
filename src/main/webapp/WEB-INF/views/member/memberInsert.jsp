@@ -282,7 +282,7 @@
 	
 			// 취소 버튼 클릭 시 이벤트 처리
 			$('#cancelButton').on("click",	function() {
-						location.href = '<c:url value="/board/list" /> '; // 회원 목록 페이지로 이동
+						location.href = '<c:url value="/home/main" /> '; // 회원 목록 페이지로 이동
 			});
 			
 	    });	// end ready()
@@ -410,7 +410,7 @@
 							<div class="d-flex justify-content-between">
 								<button id="submitButton" type="submit" class="btn btn-primary">등록</button>
 								<button id="cancelButton" type="button"
-									class="btn btn-secondary">목록으로</button>
+									class="btn btn-secondary">홈으로</button>
 							</div>
 						</form>
 					</div>
@@ -420,7 +420,7 @@
 	</div>
 </div>
 <footer class="footer">
-        <div class="container">
+        <div class="container">ㄴ
             <div class="row">
                 <div class="col-md-3">
                     <h6>코스트코 소개</h6>
