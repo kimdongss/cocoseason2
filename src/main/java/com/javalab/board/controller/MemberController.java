@@ -38,10 +38,15 @@ public class MemberController {
      */
     //@RequestMapping(value = "/member/list", method = RequestMethod.GET)
     @GetMapping("/list")
-    public String listMembers(Model model) {
+    public String listMembers(Model model, HttpSession session) {
         List<MemberVo> memberList = memberService.getMemberList();
-        model.addAttribute("memberList", memberList);
-        return "member/memberList"; // JSP 이름
+        MemberVo loginUser = (MemberVo) session.getAttribute("loginUser");
+		model.addAttribute("memberList", memberList);
+		if(loginUser != null) {
+			return "member/memberList"; // JSP 이름
+		}else {
+			return "login/login";
+		}
     }
 
     /**

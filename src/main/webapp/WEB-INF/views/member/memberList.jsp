@@ -37,7 +37,7 @@
             <!-- 로그인/로그아웃 버튼 -->
             <div>
                 <c:choose>
-                    <c:when test="${not empty loginUser}">
+                    <c:when test="${not empty loginUser.memberId}">
                         <!-- 로그인 상태 -->
                         <span class="me-2 text-secondary">${sessionScope.loginUser.memberId}님</span>
                         <button id="logoutButton" class="btn btn-danger btn-sm">로그아웃</button>
