@@ -100,7 +100,35 @@
             margin-top : 2%;
             margin-left : 15%;
          }
-         
+         /* 푸터 스타일 */
+      .footer {
+          background-color: #f8f9fa;
+          padding: 20px;
+          border-top: 2px solid #0078b5;
+          margin-top: 20px;
+      }
+      
+      .footer h6 {
+          font-weight: bold;
+      }
+      
+      .footer ul {
+          padding: 0;
+          list-style: none;
+      }
+      
+      .footer ul li a {
+          text-decoration: none;
+          color: #000;
+      }
+      
+      .footer ul li a:hover {
+          text-decoration: underline;
+      }
+      
+      .footer small {
+          color: #6c757d;
+      }
    </style>
 </head>
 <body>
@@ -162,18 +190,48 @@
    <div id="">
    </div>
    
-    <div id="footer">
-      <hr>
-      <div id="footer_1">
-         <a>애옹</a>
-      </div>
-      <div id="footer_2">
-         <a>응애a</a>
-      </div>
-      <div id="footer_3">
-         <a></a>
-      </div>
-   </div>
+    <!-- 푸터 -->
+    <footer class="footer">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-3">
+                    <h6>코스트코 소개</h6>
+                    <ul class="list-unstyled">
+                        <li><a href="#" class="text-dark">코스트코란?</a></li>
+                        <li><a href="#" class="text-dark">커클랜드 시그니처</a></li>
+                        <li><a href="#" class="text-dark">채용</a></li>
+                    </ul>
+                </div>
+                <div class="col-md-3">
+                    <h6>코스트코 멤버십</h6>
+                    <ul class="list-unstyled">
+                        <li><a href="#" class="text-dark">회원가입</a></li>
+                        <li><a href="#" class="text-dark">회원권 갱신</a></li>
+                        <li><a href="#" class="text-dark">제휴 신용카드</a></li>
+                    </ul>
+                </div>
+                <div class="col-md-3">
+                    <h6>고객센터</h6>
+                    <ul class="list-unstyled">
+                        <li><a href="#" class="text-dark">FAQ</a></li>
+                        <li><a href="#" class="text-dark">문의</a></li>
+                        <li><a href="#" class="text-dark">리콜</a></li>
+                    </ul>
+                </div>
+                <div class="col-md-3">
+                    <h6>매장 & 서비스</h6>
+                    <ul class="list-unstyled">
+                        <li><a href="#" class="text-dark">매장 안내</a></li>
+                        <li><a href="#" class="text-dark">로드쇼 행사</a></li>
+                        <li><a href="#" class="text-dark">타이어 서비스</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="text-center mt-3">
+                <small class="text-secondary">© 2024 Costco Wholesale Corporation. All rights reserved.</small>
+            </div>
+        </div>
+    </footer>
    <script>
          function main(){
             window.location.href = "/view/main";
