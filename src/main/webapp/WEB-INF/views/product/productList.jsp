@@ -107,6 +107,10 @@
 		.footer small {
 		    color: #6c757d;
 		}
+		.btn-botcontainer {
+			text-align: right; 
+			margin-top: 20px;
+		}
         
     </style>
 </head>
@@ -196,9 +200,8 @@
             <a href="#">신상품</a>
             <a href="http://kimdongss.dothome.co.kr/project.tire_shop.html">타이어</a>
             <a href="#">Same-Day(당일배송)</a>
-            <a href="/board/list">Q & A</a>
-            <a href="/product/list">전체보기</a>
-            <a href="/product/create">상품 등록</a>
+            <a href="/product/list">상품보러가기</a>
+            <a href="/board/list">Q &amp; A</a>
         </div>
     </div>
 
@@ -228,7 +231,15 @@
                 </c:forEach>
             </tbody>
         </table>
-
+        <!-- 하단 버튼들 (전체보기, 상품등록) -->
+	    <div class="btn-botcontainer">
+	        <!-- 전체보기 버튼 -->
+	        <button class="btn btn-primary btn-sm" onclick="location.href='/product/list'">전체보기</button>
+	        
+	        <!-- 상품 등록 버튼 -->
+	        <button class="btn btn-success btn-sm" onclick="location.href='/product/create'">상품 등록</button>
+	    </div>
+        
         <!-- 페이징 -->
         <div class="pagination-container">
             <ul class="pagination">
@@ -260,7 +271,10 @@
                 </c:if>
             </ul>
         </div>
+        
     </div>
+    
+    
     <!-- 푸터 -->
     <footer class="footer">
         <div class="container">

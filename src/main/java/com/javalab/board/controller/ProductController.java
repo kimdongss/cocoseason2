@@ -26,6 +26,8 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import com.javalab.board.dto.Criteria;
+import com.javalab.board.dto.PageDto;
 import com.javalab.board.service.ProductService;
 import com.javalab.board.vo.BoardVo;
 import com.javalab.board.vo.MemberVo;
@@ -89,8 +91,21 @@ public class ProductController {
 	 * 상품 목록 조회
 	 */
 	@GetMapping("/list")
-	public String listProducts(Model model, HttpSession session) {
-	    List<ProductVo> productList = productService.getAllProducts();
+	public String listProducts(Model model, HttpSession session, Criteria cri) {
+	    //List<ProductVo> productList = productService.getAllProducts();
+	    
+	    // 게시물 목록 조회
+	 		List<ProductVo> ProductList = productService.getProductListPaging(cri);
+	 		model.addAttribute("productList", ProductList);
+	 		// 게시물 건수 조회
+	 		int total = productService.getTotalProductCount(cri);
+	 		// 페이징관련 정보와 게시물 정보를 PageDto에 포장
+	 		// 페이지 하단에 표시될 페이지 그룹과 관련된 정보 생성 
+	 		PageDto dto = new PageDto(cri, total);
+	 		
+	 		log.info("dto : " + dto.toString());
+	 		model.addAttribute("pageMaker", dto);
+	    
 	    
 	    // 세션에서 로그인된 사용자 정보를 가져옴
 	    MemberVo loginUser = (MemberVo) session.getAttribute("loginUser");
@@ -102,7 +117,7 @@ public class ProductController {
 	    }
 
 	    // 모델에 데이터 추가
-	    model.addAttribute("productList", productList);
+	    //model.addAttribute("productList", ProductList);
 	    model.addAttribute("showCartButton", showCartButton);  // 장바구니 버튼을 표시할지 여부
 
 	    return "/product/productList";

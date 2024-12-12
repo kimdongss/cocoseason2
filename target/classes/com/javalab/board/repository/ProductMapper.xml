@@ -66,6 +66,44 @@
    		ORDER BY pi.img_id
    </select>
    
+   
+   <!-- 게시물 목록 조회(페이징 + 검색 기능 추가) -->
+       <select id="getProductListPaging" parameterType="Criteria" resultType="ProductVo">
+	  <![CDATA[
+	    SELECT 
+	      product_id, 
+	      name, 
+	      description, 
+	      unit_price, 
+	      reg_date
+	    FROM 
+	        (
+	        SELECT /*+INDEX_DESC(PRODUCT PK_PRODUCT) */
+	          ROWNUM RN, 
+	          product_id, 
+	          name, 
+	          description, 
+	          unit_price, 
+	          reg_date
+	        FROM 
+	          PRODUCT
+	        WHERE
+	           (name LIKE '%'||#{searchText}||'%' OR description LIKE '%'||#{searchText}||'%')
+	           AND ROWNUM <= #{pageNum} * #{amount}
+	        )
+	    WHERE RN > (#{pageNum} - 1) * #{amount}
+	  ]]>
+		</select>
+		   
+		<select id="getTotalProductCount" parameterType="Criteria" resultType="int">
+	  <![CDATA[
+	    SELECT COUNT(*)
+	    FROM PRODUCT
+	    WHERE
+	      (name LIKE '%'||#{searchText}||'%' OR description LIKE '%'||#{searchText}||'%')
+	  ]]>
+	</select>
+   
    <!-- ResultMap 생성 -->
    <!-- 한 상품의 정보 (1개임) 처리된 결과는 ProductWithImageVo에 담기게된다. 
    
