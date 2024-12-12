@@ -197,13 +197,15 @@
         </table>
     </div>
     <!-- 하단 버튼들 (전체보기, 상품등록) -->
-	<div class="btn-botcontainer">
-	    <!-- 전체보기 버튼 -->
-	    <button class="btn btn-primary btn-sm" onclick="location.href='/product/list'">전체보기</button>
-	        
-	    <!-- 상품 등록 버튼 -->
-	    <button class="btn btn-success btn-sm" onclick="location.href='/product/create'">상품 등록</button>
-   </div>
+<div class="btn-botcontainer">
+    <!-- 전체보기 버튼 -->
+    <button class="btn btn-primary btn-sm" onclick="location.href='/product/list'">전체보기</button>
+    
+    <!-- 상품 등록 버튼 (admin만 보이도록 조건 추가) -->
+    <c:if test="${sessionScope.loginUser != null and sessionScope.loginUser.roleId == 'admin'}">
+        <button class="btn btn-success btn-sm" onclick="location.href='/product/create'">상품 등록</button>
+    </c:if>
+</div>
 
 		<!-- 페이징 -->
 		<div class="pagination-container">
