@@ -73,7 +73,12 @@
             <mvc:mapping path="/product/create" />
             <mvc:mapping path="/product/update" /> 
             <mvc:mapping path="/product/delete" />
-            <!-- <mvc:mapping path="/product/admin/order" /> -->
+            <!-- 주문 목록 관련 요청 -->
+            <mvc:mapping path="/order/my-orders" />
+            <!-- <mvc:mapping path="/order/list" /> -->
+            <!-- 회원전체 주문 목록 요청 -->
+            <mvc:mapping path="/order/admin" />
+            
             <!-- 제외 경로 -->
             <mvc:exclude-mapping path="/resources/**"/>
             <!-- Interceptor 클래스 -->
