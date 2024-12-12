@@ -40,7 +40,7 @@ public class MainController {
 
         if (loginUser != null) {
             // 로그인 성공 시 세션에 사용자 정보 저장
-            session.setAttribute("loginUser", loginUser);
+            session.setAttribute("oginUser", loginUser);
             return "home/main";
         } else {
             // 로그인 실패 시 에러 메시지와 함께 로그인 폼으로 이동

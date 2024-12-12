@@ -11,10 +11,12 @@ import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import com.javalab.board.dto.Criteria;
 import com.javalab.board.vo.MemberVo;
 
 import lombok.extern.slf4j.Slf4j;
@@ -42,4 +44,5 @@ public class HomeController {
 		model.addAttribute("serverTime", formattedDate );
         return "redirect:/home/main";
 	}	
+	
 }

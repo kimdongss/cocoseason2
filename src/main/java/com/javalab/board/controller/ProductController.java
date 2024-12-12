@@ -89,10 +89,16 @@ public class ProductController {
 	 * 상품 목록 조회
 	 */
 	@GetMapping("/list")
-	public String listProducts(Model model) {
+	public String listProducts(Model model, HttpSession session) {
 		List<ProductVo> productList = productService.getAllProducts();
+		MemberVo loginUser = (MemberVo) session.getAttribute("loginUser");
 		model.addAttribute("productList", productList);
-		return "/product/productList";
+		if(loginUser != null) {
+			return "/product/productList";
+		}else {
+			return "login/login";
+		}
+		// 세션값 확인
 	}
 	
 	/*
