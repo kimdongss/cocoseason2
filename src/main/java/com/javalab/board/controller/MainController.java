@@ -19,18 +19,14 @@ import com.javalab.board.vo.MemberVo;
 import lombok.extern.slf4j.Slf4j;
 
 @Controller
-@RequestMapping("/home")
+@RequestMapping("/view")
 @Slf4j
 public class MainController {
 	
 	@GetMapping("/main") 
 	public String getListPaging(Criteria cri, Model model, HttpSession session) {
 		MemberVo loginUser = (MemberVo) session.getAttribute("loginUser");
-		log.info("왔다");
-		if(loginUser != null) {
-			log.info(loginUser.getName() + "으앵");
-		}
-		return "home/main"; // jsp 페이지
+		return "main"; // jsp 페이지
 	}
 	
 	@PostMapping("/main")
@@ -41,7 +37,7 @@ public class MainController {
         if (loginUser != null) {
             // 로그인 성공 시 세션에 사용자 정보 저장
             session.setAttribute("oginUser", loginUser);
-            return "home/main";
+            return "main";
         } else {
             // 로그인 실패 시 에러 메시지와 함께 로그인 폼으로 이동
             model.addAttribute("errorMessage", "아이디 또는 비밀번호가 잘못되었습니다.");

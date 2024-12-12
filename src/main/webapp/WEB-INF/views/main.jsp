@@ -96,14 +96,51 @@
             display: block;
             margin: 0 auto;
          }
+         #img_set{
+         	width : 100%;
+         	height : 30%;
+         	padding-left : 11.8%;
+         	padding-top : 2%;
+         }
+         #img_1{
+         	border-radius: 15px;
+         }
+         #img_2{
+         	border-radius: 15px;
+         }
+         #img_long{
+         	padding-top : 0.5%;
+         	padding-left : 12%;
+         }
+         #set_long{
+         	border-radius: 15px;
+         }
          #clickimg{
             margin-top : 2%;
-            margin-left : 15%;
+            margin-left : 12%;
          }
+         /* 파란색 네비게이션 바 */
+        .navbar-custom {
+            background-color: #0078b5;
+            color: white;
+            padding: 10px 0;
+        }
+
+        .navbar-custom a {
+            color: white;
+            margin: 0 15px;
+            text-decoration: none;
+            font-weight: bold;
+        }
+
+        .navbar-custom a:hover {
+            text-decoration: underline;
+        }	
          /* 푸터 스타일 */
       .footer {
           background-color: #f8f9fa;
           padding: 20px;
+          padding-left : 100px;
           border-top: 2px solid #0078b5;
           margin-top: 20px;
       }
@@ -137,7 +174,7 @@
          <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQtLJK5IIsDCA02NsQ1lfaqedrii0ghoyCmNQ&s" onclick="main();">
       </div>
       <div id="serch">
-         <form id="serch-txt" action="" method="get">
+         <form id="serch-txt" action="<c:url value='/product/list' />" method="get">
             <input id="settxt" type="text" placeholder="찾으시는 상품을 입력해 보세요">
             <button id="serch-go">
                <i id="serch-img" class="fa-solid fa-magnifying-glass"></i>
@@ -153,7 +190,7 @@
                   <button id="adminButton" class="btn btn-warning btn-sm">관리자</button>
                </c:if>
                <button id="logoutButton" class="btn btn-danger btn-sm">로그아웃</button>
-               <button id="testbutton">장바구니</button>
+               <button id="cartButton" class="btn btn-info btn-sm">장바구니</button>
             </c:when>
             <c:otherwise>
                     <button id="loginButton" class="btn btn-primary btn-sm">로그인</button>
@@ -162,32 +199,31 @@
             </c:choose>
          </div>
    </div>
-   <div id="menu">
-      <table id="menu-info">
-         <tr>
-            <td>
-               <a style="color:#ffffff;text-decoration-line: none;" href="<c:url value='/board/list' />">게시글 목록 페이징</a>
-            </td>
-            <td>
-               <a style="color:#ffffff;text-decoration-line: none;" href="<c:url value='/product/list' /> ">상품목록</a>
-            </td>
-            <td>
-            <c:choose>
-            <c:when test="${sessionScope.loginUser.roleId == 'admin'}">
-               <a style="color:#ffffff;text-decoration-line: none;" href="<c:url value='/member/list' /> ">회원 목록</a>
-               </c:when>
-               </c:choose>
-            </td>
-         </tr>
-      </table>
-   </div>
+<!-- 파란색 네비게이션 바 -->
+    <div class="navbar-custom">
+        <div class="container d-flex justify-content-center">
+            <a href="#">그로서리</a>
+            <a href="#">스페셜 할인</a>
+            <a href="#">신상품</a>
+            <a href="http://kimdongss.dothome.co.kr/project.tire_shop.html">타이어</a>
+            <a href="#">Same-Day(당일배송)</a>
+            <a href="/product/list">상품 보러가기</a>
+            <a href="/board/list">Q &amp; A</a>
+        </div>
+    </div>
    
    <div id="scrinImg">
       <img id="clickimg" src="https://www.costco.co.kr/medias/sys_master/banners/h4f/h99/297975754653726.webp"
        onclick="costco();">   
    </div>
    
-   <div id="">
+   <div id="img_set">
+   	  <img id="img_1" src="https://www.costco.co.kr/mediapermalink/FY25_P4_Sameday_service_ver2" onclick="Product();">
+      <img id="img_2" src="https://www.costco.co.kr/mediapermalink/FY25_P4W3_2Bigbanner_BBLAP" onclick="Product();">
+   </div>
+   
+   <div id="img_long">
+      <img id="set_long" src="https://www.costco.co.kr/mediapermalink/FY25_P4W3_ThemeCarousel_Bar_desktop">
    </div>
    
     <!-- 푸터 -->
@@ -233,26 +269,48 @@
         </div>
     </footer>
    <script>
+// 로그인/로그아웃 버튼 이벤트 처리
+   const loginButton = document.getElementById('loginButton');
+   const logoutButton = document.getElementById('logoutButton');
+   const adminButton = document.getElementById('adminButton'); // 관리자
+   const insertMemberButton = document.getElementById('insertMemberButton'); // 회원가입
+   const cartButton = document.getElementById('cartButton');
+   if (loginButton) {
+       loginButton.addEventListener('click', function() {
+           window.location.href = "<c:url value='/login' />";
+       });
+   }
+   if (insertMemberButton) {
+   	insertMemberButton.addEventListener('click', function() {
+           window.location.href = "<c:url value='/member/insert' />";
+       });
+   }
+	// 관리자 버튼 이벤트 핸들러
+   if (adminButton) {
+   	adminButton.addEventListener('click', function() {
+           window.location.href = "<c:url value='/member/list' />";
+       });
+   }
+
+   if (logoutButton) {
+       logoutButton.addEventListener('click', function() {
+           window.location.href = "<c:url value='/logout' />";
+       });
+   }
+   if (cartButton) {
+	   cartButton.addEventListener('click', function() {
+           window.location.href = "<c:url value='/cart/view' />";
+       });
+   }
          function main(){
             window.location.href = "/view/main";
          }
          function costco(){
             window.location.href = "https://www.costco.co.kr/ExecutiveMembership";
          }
-       const loginButton = document.getElementById('loginButton');
-        const logoutButton = document.getElementById('logoutButton');
-        
-        if (loginButton) {
-            loginButton.addEventListener('click', function() {
-            window.location.href = "<c:url value='/login' />";
-       });
-      }
-        if (insertMemberButton) {
-           insertMemberButton.addEventListener('click', function() {
-                window.location.href = "<c:url value='/member/insert' />";
-            });
-        }
-   
+         function Product(){
+        	 window.location.href = "/product/list";
+         }
    </script>
 </body>
 </html>
