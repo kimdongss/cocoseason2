@@ -22,7 +22,7 @@ public class OrderServiceImpl implements OrderService {
 	orderRepository.insertOrder(order); // 매퍼를 통해 DB에 추가
 	
 	// 장바구니에서 해당 상품 제거 로직 추가 필요 
-	cartService.removeFromCart(order.getProductId()); // 장바구니에서 상품 제거 
+	cartService.clearCart(order.getMemberId()); // 장바구니에서 상품 제거 
 	}
 	
 	@Override

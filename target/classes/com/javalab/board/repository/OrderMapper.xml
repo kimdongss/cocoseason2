@@ -17,7 +17,7 @@
         ADDRESS, 
         PHONE)
         VALUES (
-        seq_order_info.NEXTVAL, 
+        order_seq.NEXTVAL, 
         #{productId}, 
         #{memberId}, 
         #{productName}, 
@@ -43,6 +43,8 @@
     <delete id="deleteOrder" parameterType="long">
     DELETE FROM ORDER_INFO WHERE ORDER_ID = #{orderId}
 	</delete>
+	
+	<!-- 주문에서 수량변경은 비즈 로직상 하면안될거 같아서 사용안하기로함 -->
 	<update id="updateOrderQuantity">
         UPDATE ORDER_INFO 
         SET QUANTITY = #{quantity}
