@@ -40,6 +40,11 @@
         .search-container .btn {
             margin-right: 5px;
         }
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+        }
         /* 상단 섹션 (로고, 검색창, 버튼들) */
         .top-section {
             padding: 10px 20px;
