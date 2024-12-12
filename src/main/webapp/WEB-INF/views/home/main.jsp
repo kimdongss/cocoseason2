@@ -174,7 +174,7 @@
          <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQtLJK5IIsDCA02NsQ1lfaqedrii0ghoyCmNQ&s" onclick="main();">
       </div>
       <div id="serch">
-         <form id="serch-txt" action="<c:url value='/product/list' />" method="get">
+         <form id="serch-txt" action="<c:url value='/board/product/list' />" method="get">
             <input id="settxt" type="text" placeholder="찾으시는 상품을 입력해 보세요">
             <button id="serch-go">
                <i id="serch-img" class="fa-solid fa-magnifying-glass"></i>
@@ -188,6 +188,9 @@
                <!-- 관리자 권한이 있는 경우 "관리자" 버튼 추가 -->
                <c:if test="${sessionScope.loginUser.roleId == 'admin'}">
                   <button id="adminButton" class="btn btn-warning btn-sm">관리자</button>
+               </c:if>
+               <c:if test="${sessionScope.loginUser.roleId != 'admin'}">
+                  <button id="memberButton" class="btn btn-warning btn-sm">마이페이지</button>
                </c:if>
                <button id="logoutButton" class="btn btn-danger btn-sm">로그아웃</button>
                <button id="cartButton" class="btn btn-info btn-sm">장바구니</button>
@@ -219,7 +222,7 @@
    
    <div id="img_set">
    	  <img id="img_1" src="https://www.costco.co.kr/mediapermalink/FY25_P4_Sameday_service_ver2" onclick="Product();">
-      <img id="img_2" src="https://www.costco.co.kr/mediapermalink/FY25_P4W3_2Bigbanner_BBLAP" onclick="Product();">
+      <img id="img_2" src="https://www.costco.co.kr/mediapermalink/FY25_P4W3_2Bigbanner_BBLAP" onclick="ProductInsert();">
    </div>
    
    <div id="img_long">
@@ -275,6 +278,7 @@
    const adminButton = document.getElementById('adminButton'); // 관리자
    const insertMemberButton = document.getElementById('insertMemberButton'); // 회원가입
    const cartButton = document.getElementById('cartButton');
+   const memberButton = document.getElementById('memberButton');
    if (loginButton) {
        loginButton.addEventListener('click', function() {
            window.location.href = "<c:url value='/login' />";
@@ -288,7 +292,7 @@
 	// 관리자 버튼 이벤트 핸들러
    if (adminButton) {
    	adminButton.addEventListener('click', function() {
-           window.location.href = "<c:url value='/member/list' />";
+           window.location.href = "<c:url value='/admin' />";
        });
    }
 
@@ -302,14 +306,22 @@
            window.location.href = "<c:url value='/cart/view' />";
        });
    }
+   if (memberButton) {
+	   memberButton.addEventListener('click', function() {
+           window.location.href = "<c:url value='/member/mypage' />";
+       });
+   }
          function main(){
-            window.location.href = "/view/main";
+            window.location.href = "/board/home/main";
          }
          function costco(){
             window.location.href = "https://www.costco.co.kr/ExecutiveMembership";
          }
          function Product(){
         	 window.location.href = "/product/list";
+         }
+         function ProductInsert(){
+        	 window.location.href = "/product/create";
          }
    </script>
 </body>
