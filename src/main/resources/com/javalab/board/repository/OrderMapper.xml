@@ -31,6 +31,7 @@
     <select id="selectAllOrders" resultType="com.javalab.board.vo.OrderVo">
         SELECT * 
         FROM ORDER_INFO
+        ORDER BY ORDER_ID DESC
     </select>
 
 	<!-- 특정 회원의 주문 조회 -->
