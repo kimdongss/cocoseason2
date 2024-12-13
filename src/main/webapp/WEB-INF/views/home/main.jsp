@@ -171,7 +171,7 @@
 <body>
    <div id="heder">
       <div id="mainPage">
-         <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQtLJK5IIsDCA02NsQ1lfaqedrii0ghoyCmNQ&s" onclick="main();">
+         <img src="<c:url value='/resources/image/costcologo.png' />" onclick="main();">
       </div>
       <div id="serch">
          <form id="serch-txt" action="<c:url value='/board/product/list' />" method="get">
@@ -216,17 +216,17 @@
     </div>
    
    <div id="scrinImg">
-      <img id="clickimg" src="https://www.costco.co.kr/medias/sys_master/banners/h4f/h99/297975754653726.webp"
+      <img id="clickimg" src="<c:url value='/resources/image/costcomembership.png' />"
        onclick="costco();">   
    </div>
    
    <div id="img_set">
-   	  <img id="img_1" src="https://www.costco.co.kr/mediapermalink/FY25_P4_Sameday_service_ver2" onclick="Product();">
-      <img id="img_2" src="https://www.costco.co.kr/mediapermalink/FY25_P4W3_2Bigbanner_BBLAP" onclick="ProductInsert();">
+   	  <img id="img_1" src="<c:url value='/resources/image/costcoproduct.png' />" onclick="Product();">
+      <img id="img_2" src="<c:url value='/resources/image/costcoinsert.png' />" onclick="ProductInsert();">
    </div>
    
    <div id="img_long">
-      <img id="set_long" src="https://www.costco.co.kr/mediapermalink/FY25_P4W3_ThemeCarousel_Bar_desktop">
+      <img id="set_long" src="<c:url value='/resources/image/costcomain.png' />">
    </div>
    
     <!-- 푸터 -->
