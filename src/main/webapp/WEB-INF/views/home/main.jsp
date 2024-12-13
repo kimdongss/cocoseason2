@@ -9,7 +9,9 @@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
     <!-- jQuery -->
     <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
-    <script src="https://kit.fontawesome.com/b68dd2b146.js" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/js/all.min.js"></script>
+   
+    
    <style>
       @font-face {
         font-family: 'Nanum Gothic';
@@ -171,7 +173,7 @@
 <body>
    <div id="heder">
       <div id="mainPage">
-         <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQtLJK5IIsDCA02NsQ1lfaqedrii0ghoyCmNQ&s" onclick="main();">
+         <img src="<c:url value='/resources/image/costcologo.png' />" onclick="main();">
       </div>
       	<div id="serch">
 		    <form id="serch-txt" action="<c:url value='/product/list' />" method="get" class="d-flex">
@@ -218,17 +220,17 @@
     </div>
    
    <div id="scrinImg">
-      <img id="clickimg" src="https://www.costco.co.kr/medias/sys_master/banners/h4f/h99/297975754653726.webp"
+      <img id="clickimg" src="<c:url value='/resources/image/costcomembership.png' />"
        onclick="costco();">   
    </div>
    
    <div id="img_set">
-   	  <img id="img_1" src="https://www.costco.co.kr/mediapermalink/FY25_P4_Sameday_service_ver2" onclick="Product1();">
-      <img id="img_2" src="https://www.costco.co.kr/mediapermalink/FY25_P4W3_2Bigbanner_BBLAP" onclick="Product2();">
+   	  <img id="img_1" src="<c:url value='/resources/image/costcoproduct.png' />" onclick="Product1();">
+      <img id="img_2" src="<c:url value='/resources/image/costcoinsert.png' />" onclick="Product2();">
    </div>
    
    <div id="img_long">
-      <img id="set_long" src="https://www.costco.co.kr/mediapermalink/FY25_P4W3_ThemeCarousel_Bar_desktop">
+      <img id="set_long" src="<c:url value='/resources/image/costcomain.png' />">
    </div>
    
     <!-- 푸터 -->
@@ -260,7 +262,7 @@
                     </ul>
                 </div>
                 <div class="col-md-3">
-                    <h6>매장 & 서비스</h6>
+                    <h6>매장 &amp; 서비스</h6>
                     <ul class="list-unstyled">
                         <li><a href="#" class="text-dark">매장 안내</a></li>
                         <li><a href="#" class="text-dark">로드쇼 행사</a></li>

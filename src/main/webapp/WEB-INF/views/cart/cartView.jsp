@@ -297,7 +297,12 @@
             window.location.href = "<c:url value='/logout' />";
         });
     }
-    
+    if (cartButton) {
+  	   cartButton.addEventListener('click', function() {
+             window.location.href = "<c:url value='/cart/view' />";
+         });
+    }
+
     function main(){
         window.location.href = "/home/main";
      }
